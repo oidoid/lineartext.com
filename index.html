@@ -25,11 +25,9 @@
 
       .linear-text {
         display: block;
-        margin-left: auto;
-        margin-right: auto;
       }
 
-      main {
+      .container {
         background: #fff;
         padding: 16px;
         border-radius: 16px;
@@ -41,22 +39,24 @@
     <link rel="icon" href="favicon.svg">
   </head>
   <body>
-    <header>
-      <!-- prettier-ignore -->
-      <img
+    <div class="container">
+      <header>
+        <!-- prettier-ignore -->
+        <img
         class="linear-text"
         src="favicon.svg"
-        width="256"
-        height="256"
+        width="512"
+        height="128"
         alt="Linear Text"
       >
-    </header>
-    <main>
-      <p>A graphical line editor.</p>
-      <p>
-        Source code available on
-        <a href="https://git.io/linear-text">GitHub</a>.
-      </p>
-    </main>
+      </header>
+      <main>
+        <p>A graphical line editor for plain text.</p>
+        <p>
+          Source code available on
+          <a href="https://git.io/linear-text">GitHub</a>.
+        </p>
+      </main>
+    </div>
   </body>
 </html>
