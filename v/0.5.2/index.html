@@ -1,0 +1,780 @@
+<!doctype html><html><head>
+    <meta charset="utf-8">
+    <title>Linear Text</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="data:null;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1LwAA6l8AADqXAAAXcHwVugEAAAAMUExURQAAAP//5v//15qamsROZpoAAAAEdFJOUwD///+zLUCIAAAAK0lEQVQYlWNgRgMMzIwoYDAKYLiUmYmJiZkBVQDIRxEA8VHMYAALIPkcBADNuwF46EuTbQAAAABJRU5ErkJggg==">
+    <link rel="manifest" href="data:application/json,%7B%22author%22%3A%22oidoid%22%2C%22description%22%3A%22Graphical%20line-oriented%20text%20editor.%22%2C%22display%22%3A%22standalone%22%2C%22homepage_url%22%3A%22https%3A%2F%2Flineartext.com%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIGNIUk0AAHomAACAhAAA%2BgAAAIDoAAB1LwAA6l8AADqXAAAXcHwVugEAAAAMUExURQAAAP%2F%2F5v%2F%2F15qamsROZpoAAAAEdFJOUwD%2F%2F%2F%2BzLUCIAAAAK0lEQVQYlWNgRgMMzIwoYDAKYLiUmYmJiZkBVQDIRxEA8VHMYAALIPkcBADNuwF46EuTbQAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%2216x16%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAABGdBTUEAALGPC%2FxhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdS8AAOpfAAA6lwAAF3B8FboBAAAAD1BMVEUAAACampr%2F%2F%2Bb%2F%2F9f%2F%2F%2F%2B%2BPm7yAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfoAQQUJR0UGzo6AAAAMUlEQVQoz2MQRAMMmAJKKGBUgAQBjCDEFDA2NhZkICAA5OMXAPHxCoD5WASQ4hmrAACrRDhR5e3IcQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyNC0wMS0wM1QxOTowNDo0MyswMDowMAjEntsAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjQtMDEtMDNUMTk6MDQ6NDMrMDA6MDB5mSZnAAAAAElFTkSuQmCC%22%2C%22sizes%22%3A%2232x32%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC%2FxhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdS8AAOpfAAA6lwAAF3B8FboBAAAAD1BMVEUAAACampr%2F%2F%2Bb%2F%2F9f%2F%2F%2F%2B%2BPm7yAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfoAQMTBiBqQi92AAAAPklEQVQ4y2MQxAEYyJAQUsICFEclRiUGqQTOtEuGhLAxEAgKMFBHwlCQgYE6EiALqCIhCLaAPAk0IMBArgQAL%2BF%2BLl3%2BWosAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjQtMDEtMDNUMTk6MDQ6NDMrMDA6MDAIxJ7bAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI0LTAxLTAzVDE5OjA0OjQzKzAwOjAweZkmZwAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%2248x48%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAABGdBTUEAALGPC%2FxhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdS8AAOpfAAA6lwAAF3B8FboBAAAAD1BMVEUAAACampr%2F%2F%2Bb%2F%2F9f%2F%2F%2F%2B%2BPm7yAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfoAQMTBwfWU6tcAAAAPklEQVRIx2MQJAAY6KJACQ8YVTCqYFTBqILBp4BgIUYXBcZgAJRmGFgFYOkBVQCVHkAFcGk6KcBanTLQUQEAg0ThQcYZngIAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjQtMDEtMDNUMTk6MDQ6NDMrMDA6MDAIxJ7bAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI0LTAxLTAzVDE5OjA0OjQzKzAwOjAweZkmZwAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%2264x64%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAMAAAADABAMAAACg8nE0AAAABGdBTUEAALGPC%2FxhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdS8AAOpfAAA6lwAAF3B8FboBAAAAD1BMVEUAAACampr%2F%2F%2Bb%2F%2F9f%2F%2F%2F%2B%2BPm7yAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfoAQMTBjKZ%2B14%2BAAAAgElEQVR42u3NwQ2AIBAAwWuBFmjB%2FnvjIR%2BjIsZwfmYL2ImyuAAAAIBpoC4IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOBfoEwEAAAAOcB2qq%2F3AAAAIB04rAEAACAduFgDAABAInC7BgAAgJfAl2IcAAAAPAMNMLbrqvA%2BCg0AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjQtMDEtMDNUMTk6MDQ6NDMrMDA6MDAIxJ7bAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI0LTAxLTAzVDE5OjA0OjQzKzAwOjAweZkmZwAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIABAMAAAAGVsnJAAAABGdBTUEAALGPC%2FxhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdS8AAOpfAAA6lwAAF3B8FboBAAAAD1BMVEUAAACampr%2F%2F%2Bb%2F%2F9f%2F%2F%2F%2B%2BPm7yAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfoAQMTBjkOKYe2AAACo0lEQVR42u3QwQ2DMAAEQVqgBVpI%2F73ljx%2BRhZI1YbaCu9n2h7fVA%2BoA1APqANQD6gDUA%2BoA1APqANQD6gDUA%2BoA1APqANQD6gDUA%2BoA1APqANQD6gDUA%2BoA1APqANQD6gDUA%2BoGgOPPAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAPBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAPBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwJoA%2B5cDAAAAAAAAAAAAAAAAAAAAAAAAUB8GAAAAAAAAAAAAAAAAAAAARoDXZMPhcwAAAAAAAAAAAAAAAAAAAAAAAPVhAAAAAAAAAAAAAAAAAAAAAMA0wMfDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDbAUwfBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsD3D5MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg%2BS4fBgAAAAAAAAAAAAAAAAAAAAAAqA8BAAAAAAAAAAAAAAAAAAAAvwd4AyXrU0n3lvv5AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI0LTAxLTAzVDE5OjA0OjQzKzAwOjAwCMSe2wAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNC0wMS0wM1QxOTowNDo0MyswMDowMHmZJmcAAAAASUVORK5CYII%3D%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB2aWV3Qm94PSIwIDAgMTYgMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI%2BCiAgPHBhdGgKICAgICBzdHlsZT0iZmlsbDojZmZmZmU2O3N0cm9rZTojOWE5YTlhIgogICAgIGQ9Ik0gMTAsMTUuNSBIIDAuNSB2IC0xNSBoIDE1IFYgMTAiCiAgLz4KICA8cGF0aAogICAgc3R5bGU9ImZpbGw6I2ZmZmZkNztzdHJva2U6IzlhOWE5YSIKICAgIGQ9Im0gMTAuNSwxMC41IGggNSBjIDAsMCAtNSw1IC01LDUgWiIKICAvPgo8L3N2Zz4K%22%2C%22sizes%22%3A%22any%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%2C%22manifest_version%22%3A3%2C%22name%22%3A%22Linear%20Text%22%2C%22orientation%22%3A%22any%22%2C%22short_name%22%3A%22T%CC%B2e%CC%B2x%CC%B2t%CC%B2%22%2C%22start_url%22%3A%22https%3A%2F%2Flineartext.com%22%2C%22theme_color%22%3A%22%23f2f5f5%22%2C%22version%22%3A%220.5.2%22%7D">
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">var Ln=Object.create;var Nt=Object.defineProperty;var ni=Object.getOwnPropertyDescriptor;var Sn=Object.getOwnPropertyNames;var Rn=Object.getPrototypeOf,Pn=Object.prototype.hasOwnProperty;var J=(i,t)=>()=>(t||i((t={exports:{}}).exports,t),t.exports);var Bn=(i,t,e,n)=>{if(t&&typeof t=="object"||typeof t=="function")for(let r of Sn(t))!Pn.call(i,r)&&r!==e&&Nt(i,r,{get:()=>t[r],enumerable:!(n=ni(t,r))||n.enumerable});return i};var Q=(i,t,e)=>(e=i!=null?Ln(Rn(i)):{},Bn(t||!i||!i.__esModule?Nt(e,"default",{value:i,enumerable:!0}):e,i));var m=(i,t,e,n)=>{for(var r=n>1?void 0:n?ni(t,e):t,s=i.length-1,o;s>=0;s--)(o=i[s])&&(r=(n?o(t,e,r):o(r))||r);return n&&r&&Nt(t,e,r),r};var zt=(i,t,e)=>{if(!t.has(i))throw TypeError("Cannot "+e)};var l=(i,t,e)=>(zt(i,t,"read from private field"),e?e.call(i):t.get(i)),p=(i,t,e)=>{if(t.has(i))throw TypeError("Cannot add the same private member more than once");t instanceof WeakSet?t.add(i):t.set(i,e)},y=(i,t,e,n)=>(zt(i,t,"write to private field"),n?n.call(i,e):t.set(i,e),e);var h=(i,t,e)=>(zt(i,t,"access private method"),e);var Bi=J((U2,ur)=>{ur.exports="data:image/svg+xml;utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%0A%20%20%20xmlns%3Adc%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%22%0A%20%20%20xmlns%3Acc%3D%22http%3A%2F%2Fcreativecommons.org%2Fns%23%22%0A%20%20%20xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A%20%20%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3Asodipodi%3D%22http%3A%2F%2Fsodipodi.sourceforge.net%2FDTD%2Fsodipodi-0.dtd%22%0A%20%20%20xmlns%3Ainkscape%3D%22http%3A%2F%2Fwww.inkscape.org%2Fnamespaces%2Finkscape%22%0A%20%20%20width%3D%2220%22%0A%20%20%20height%3D%2220%22%0A%20%20%20viewBox%3D%220%200%205.2916668%205.2916668%22%0A%20%20%20version%3D%221.1%22%0A%20%20%20id%3D%22svg8%22%0A%20%20%20inkscape%3Aversion%3D%221.0.1%20(3bc2e813f5%2C%202020-09-07)%22%0A%20%20%20sodipodi%3Adocname%3D%22menu-icon-load-file.svg%22%3E%0A%20%20%3Cdefs%0A%20%20%20%20%20id%3D%22defs2%22%20%2F%3E%0A%20%20%3Csodipodi%3Anamedview%0A%20%20%20%20%20id%3D%22base%22%0A%20%20%20%20%20pagecolor%3D%22%23ffffff%22%0A%20%20%20%20%20bordercolor%3D%22%23666666%22%0A%20%20%20%20%20borderopacity%3D%221.0%22%0A%20%20%20%20%20inkscape%3Apageopacity%3D%220.0%22%0A%20%20%20%20%20inkscape%3Apageshadow%3D%222%22%0A%20%20%20%20%20inkscape%3Azoom%3D%2231.678384%22%0A%20%20%20%20%20inkscape%3Acx%3D%229.0083838%22%0A%20%20%20%20%20inkscape%3Acy%3D%2210.932754%22%0A%20%20%20%20%20inkscape%3Adocument-units%3D%22mm%22%0A%20%20%20%20%20inkscape%3Acurrent-layer%3D%22layer1%22%0A%20%20%20%20%20inkscape%3Adocument-rotation%3D%220%22%0A%20%20%20%20%20showgrid%3D%22false%22%0A%20%20%20%20%20showguides%3D%22false%22%0A%20%20%20%20%20inkscape%3Awindow-width%3D%221920%22%0A%20%20%20%20%20inkscape%3Awindow-height%3D%221016%22%0A%20%20%20%20%20inkscape%3Awindow-x%3D%220%22%0A%20%20%20%20%20inkscape%3Awindow-y%3D%2227%22%0A%20%20%20%20%20inkscape%3Awindow-maximized%3D%221%22%0A%20%20%20%20%20units%3D%22px%22%0A%20%20%20%20%20fit-margin-top%3D%220%22%0A%20%20%20%20%20fit-margin-left%3D%220%22%0A%20%20%20%20%20fit-margin-right%3D%220%22%0A%20%20%20%20%20fit-margin-bottom%3D%220%22%20%2F%3E%0A%20%20%3Cmetadata%0A%20%20%20%20%20id%3D%22metadata5%22%3E%0A%20%20%20%20%3Crdf%3ARDF%3E%0A%20%20%20%20%20%20%3Ccc%3AWork%0A%20%20%20%20%20%20%20%20%20rdf%3Aabout%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Aformat%3Eimage%2Fsvg%2Bxml%3C%2Fdc%3Aformat%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Atype%0A%20%20%20%20%20%20%20%20%20%20%20rdf%3Aresource%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Fdcmitype%2FStillImage%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Atitle%3E%3C%2Fdc%3Atitle%3E%0A%20%20%20%20%20%20%3C%2Fcc%3AWork%3E%0A%20%20%20%20%3C%2Frdf%3ARDF%3E%0A%20%20%3C%2Fmetadata%3E%0A%20%20%3Cg%0A%20%20%20%20%20inkscape%3Alabel%3D%22Layer%201%22%0A%20%20%20%20%20inkscape%3Agroupmode%3D%22layer%22%0A%20%20%20%20%20id%3D%22layer1%22%0A%20%20%20%20%20transform%3D%22translate(-4.2333334%2C-2.6458333)%22%3E%0A%20%20%20%20%3Crect%0A%20%20%20%20%20%20%20style%3D%22fill%3Anone%3Bstroke%3A%23404040%3Bstroke-width%3A0.265%3Bstroke-linecap%3Abutt%3Bstroke-linejoin%3Amiter%3Bstroke-miterlimit%3A4%3Bstroke-dasharray%3Anone%3Bstroke-opacity%3A1%22%0A%20%20%20%20%20%20%20id%3D%22rect844%22%0A%20%20%20%20%20%20%20width%3D%223.9683332%22%0A%20%20%20%20%20%20%20height%3D%225.0266666%22%0A%20%20%20%20%20%20%20x%3D%224.895%22%0A%20%20%20%20%20%20%20y%3D%222.7783332%22%20%2F%3E%0A%20%20%20%20%3Cpath%0A%20%20%20%20%20%20%20style%3D%22fill%3Anone%3Bfill-opacity%3A1%3Bstroke%3A%23000000%3Bstroke-width%3A0.265%3Bstroke-linecap%3Around%3Bstroke-linejoin%3Around%3Bstroke-miterlimit%3A4%3Bstroke-dasharray%3Anone%3Bstroke-opacity%3A1%22%0A%20%20%20%20%20%20%20d%3D%22m%206.4822806%2C6.6145753%202.23e-5%2C-1.4552085%20H%205.8208334%20L%206.8791667%2C3.8364501%207.9375001%2C5.1593668%20H%207.2760417%20v%201.4552085%20z%22%0A%20%20%20%20%20%20%20id%3D%22path834%22%0A%20%20%20%20%20%20%20sodipodi%3Anodetypes%3D%22cccccccc%22%20%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A"});var Mi=J((N2,mr)=>{mr.exports="data:image/svg+xml;utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%0A%20%20%20xmlns%3Adc%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%22%0A%20%20%20xmlns%3Acc%3D%22http%3A%2F%2Fcreativecommons.org%2Fns%23%22%0A%20%20%20xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A%20%20%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3Asodipodi%3D%22http%3A%2F%2Fsodipodi.sourceforge.net%2FDTD%2Fsodipodi-0.dtd%22%0A%20%20%20xmlns%3Ainkscape%3D%22http%3A%2F%2Fwww.inkscape.org%2Fnamespaces%2Finkscape%22%0A%20%20%20width%3D%2220%22%0A%20%20%20height%3D%2220%22%0A%20%20%20viewBox%3D%220%200%205.2916668%205.2916668%22%0A%20%20%20version%3D%221.1%22%0A%20%20%20id%3D%22svg8%22%0A%20%20%20inkscape%3Aversion%3D%221.0.1%20(3bc2e813f5%2C%202020-09-07)%22%0A%20%20%20sodipodi%3Adocname%3D%22toolbar-icon-new-file.svg%22%3E%0A%20%20%3Cdefs%0A%20%20%20%20%20id%3D%22defs2%22%20%2F%3E%0A%20%20%3Csodipodi%3Anamedview%0A%20%20%20%20%20id%3D%22base%22%0A%20%20%20%20%20pagecolor%3D%22%23ffffff%22%0A%20%20%20%20%20bordercolor%3D%22%23666666%22%0A%20%20%20%20%20borderopacity%3D%221.0%22%0A%20%20%20%20%20inkscape%3Apageopacity%3D%220.0%22%0A%20%20%20%20%20inkscape%3Apageshadow%3D%222%22%0A%20%20%20%20%20inkscape%3Azoom%3D%2215.839192%22%0A%20%20%20%20%20inkscape%3Acx%3D%229.6968009%22%0A%20%20%20%20%20inkscape%3Acy%3D%2215.02461%22%0A%20%20%20%20%20inkscape%3Adocument-units%3D%22mm%22%0A%20%20%20%20%20inkscape%3Acurrent-layer%3D%22layer1%22%0A%20%20%20%20%20inkscape%3Adocument-rotation%3D%220%22%0A%20%20%20%20%20showgrid%3D%22false%22%0A%20%20%20%20%20showguides%3D%22false%22%0A%20%20%20%20%20inkscape%3Awindow-width%3D%222560%22%0A%20%20%20%20%20inkscape%3Awindow-height%3D%221376%22%0A%20%20%20%20%20inkscape%3Awindow-x%3D%220%22%0A%20%20%20%20%20inkscape%3Awindow-y%3D%2227%22%0A%20%20%20%20%20inkscape%3Awindow-maximized%3D%221%22%0A%20%20%20%20%20units%3D%22px%22%0A%20%20%20%20%20fit-margin-top%3D%220%22%0A%20%20%20%20%20fit-margin-left%3D%220%22%0A%20%20%20%20%20fit-margin-right%3D%220%22%0A%20%20%20%20%20fit-margin-bottom%3D%220%22%20%2F%3E%0A%20%20%3Cmetadata%0A%20%20%20%20%20id%3D%22metadata5%22%3E%0A%20%20%20%20%3Crdf%3ARDF%3E%0A%20%20%20%20%20%20%3Ccc%3AWork%0A%20%20%20%20%20%20%20%20%20rdf%3Aabout%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Aformat%3Eimage%2Fsvg%2Bxml%3C%2Fdc%3Aformat%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Atype%0A%20%20%20%20%20%20%20%20%20%20%20rdf%3Aresource%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Fdcmitype%2FStillImage%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Atitle%20%2F%3E%0A%20%20%20%20%20%20%3C%2Fcc%3AWork%3E%0A%20%20%20%20%3C%2Frdf%3ARDF%3E%0A%20%20%3C%2Fmetadata%3E%0A%20%20%3Cg%0A%20%20%20%20%20inkscape%3Alabel%3D%22Layer%201%22%0A%20%20%20%20%20inkscape%3Agroupmode%3D%22layer%22%0A%20%20%20%20%20id%3D%22layer1%22%0A%20%20%20%20%20transform%3D%22translate(-4.2333334%2C-2.6458333)%22%3E%0A%20%20%20%20%3Crect%0A%20%20%20%20%20%20%20style%3D%22fill%3Anone%3Bstroke%3A%23404040%3Bstroke-width%3A0.265%3Bstroke-linecap%3Abutt%3Bstroke-linejoin%3Amiter%3Bstroke-miterlimit%3A4%3Bstroke-dasharray%3Anone%3Bstroke-opacity%3A1%22%0A%20%20%20%20%20%20%20id%3D%22rect844%22%0A%20%20%20%20%20%20%20width%3D%223.9683332%22%0A%20%20%20%20%20%20%20height%3D%225.0266666%22%0A%20%20%20%20%20%20%20x%3D%224.895%22%0A%20%20%20%20%20%20%20y%3D%222.7783332%22%20%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A"});var Oi=J((z2,fr)=>{fr.exports="data:image/svg+xml;utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%0A%20%20%20xmlns%3Adc%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%22%0A%20%20%20xmlns%3Acc%3D%22http%3A%2F%2Fcreativecommons.org%2Fns%23%22%0A%20%20%20xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A%20%20%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3Asodipodi%3D%22http%3A%2F%2Fsodipodi.sourceforge.net%2FDTD%2Fsodipodi-0.dtd%22%0A%20%20%20xmlns%3Ainkscape%3D%22http%3A%2F%2Fwww.inkscape.org%2Fnamespaces%2Finkscape%22%0A%20%20%20width%3D%2220%22%0A%20%20%20height%3D%2220%22%0A%20%20%20viewBox%3D%220%200%205.2916668%205.2916668%22%0A%20%20%20version%3D%221.1%22%0A%20%20%20id%3D%22svg8%22%0A%20%20%20inkscape%3Aversion%3D%221.0.1%20(3bc2e813f5%2C%202020-09-07)%22%0A%20%20%20sodipodi%3Adocname%3D%22menu-icon-save-file-as.svg%22%3E%0A%20%20%3Cdefs%0A%20%20%20%20%20id%3D%22defs2%22%20%2F%3E%0A%20%20%3Csodipodi%3Anamedview%0A%20%20%20%20%20id%3D%22base%22%0A%20%20%20%20%20pagecolor%3D%22%23ffffff%22%0A%20%20%20%20%20bordercolor%3D%22%23666666%22%0A%20%20%20%20%20borderopacity%3D%221.0%22%0A%20%20%20%20%20inkscape%3Apageopacity%3D%220.0%22%0A%20%20%20%20%20inkscape%3Apageshadow%3D%222%22%0A%20%20%20%20%20inkscape%3Azoom%3D%2231.678384%22%0A%20%20%20%20%20inkscape%3Acx%3D%229.0083838%22%0A%20%20%20%20%20inkscape%3Acy%3D%2210.932754%22%0A%20%20%20%20%20inkscape%3Adocument-units%3D%22mm%22%0A%20%20%20%20%20inkscape%3Acurrent-layer%3D%22layer1%22%0A%20%20%20%20%20inkscape%3Adocument-rotation%3D%220%22%0A%20%20%20%20%20showgrid%3D%22false%22%0A%20%20%20%20%20showguides%3D%22false%22%0A%20%20%20%20%20inkscape%3Awindow-width%3D%221920%22%0A%20%20%20%20%20inkscape%3Awindow-height%3D%221016%22%0A%20%20%20%20%20inkscape%3Awindow-x%3D%220%22%0A%20%20%20%20%20inkscape%3Awindow-y%3D%2227%22%0A%20%20%20%20%20inkscape%3Awindow-maximized%3D%221%22%0A%20%20%20%20%20units%3D%22px%22%0A%20%20%20%20%20fit-margin-top%3D%220%22%0A%20%20%20%20%20fit-margin-left%3D%220%22%0A%20%20%20%20%20fit-margin-right%3D%220%22%0A%20%20%20%20%20fit-margin-bottom%3D%220%22%20%2F%3E%0A%20%20%3Cmetadata%0A%20%20%20%20%20id%3D%22metadata5%22%3E%0A%20%20%20%20%3Crdf%3ARDF%3E%0A%20%20%20%20%20%20%3Ccc%3AWork%0A%20%20%20%20%20%20%20%20%20rdf%3Aabout%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Aformat%3Eimage%2Fsvg%2Bxml%3C%2Fdc%3Aformat%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Atype%0A%20%20%20%20%20%20%20%20%20%20%20rdf%3Aresource%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Fdcmitype%2FStillImage%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Atitle%20%2F%3E%0A%20%20%20%20%20%20%3C%2Fcc%3AWork%3E%0A%20%20%20%20%3C%2Frdf%3ARDF%3E%0A%20%20%3C%2Fmetadata%3E%0A%20%20%3Cg%0A%20%20%20%20%20inkscape%3Alabel%3D%22Layer%201%22%0A%20%20%20%20%20inkscape%3Agroupmode%3D%22layer%22%0A%20%20%20%20%20id%3D%22layer1%22%0A%20%20%20%20%20transform%3D%22translate(-4.2333334%2C-2.6458333)%22%3E%0A%20%20%20%20%3Crect%0A%20%20%20%20%20%20%20style%3D%22fill%3Anone%3Bstroke%3A%23404040%3Bstroke-width%3A0.265%3Bstroke-linecap%3Abutt%3Bstroke-linejoin%3Amiter%3Bstroke-miterlimit%3A4%3Bstroke-dasharray%3Anone%3Bstroke-opacity%3A1%22%0A%20%20%20%20%20%20%20id%3D%22rect844%22%0A%20%20%20%20%20%20%20width%3D%223.9683332%22%0A%20%20%20%20%20%20%20height%3D%225.0266666%22%0A%20%20%20%20%20%20%20x%3D%224.895%22%0A%20%20%20%20%20%20%20y%3D%222.7783332%22%20%2F%3E%0A%20%20%20%20%3Cpath%0A%20%20%20%20%20%20%20style%3D%22fill%3Anone%3Bfill-opacity%3A1%3Bstroke%3A%23000000%3Bstroke-width%3A0.265%3Bstroke-linecap%3Around%3Bstroke-linejoin%3Around%3Bstroke-miterlimit%3A4%3Bstroke-dasharray%3Anone%3Bstroke-opacity%3A1%22%0A%20%20%20%20%20%20%20d%3D%22M%205.7573254%2C4.3153111%206.5920169%2C5.5073353%206.0501728%2C5.8867386%207.6759026%2C6.3633735%207.7840447%2C4.6726685%207.2422097%2C5.0520654%206.4075364%2C3.8600284%20Z%22%0A%20%20%20%20%20%20%20id%3D%22path834%22%0A%20%20%20%20%20%20%20sodipodi%3Anodetypes%3D%22cccccccc%22%20%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A"});var Hi=J((j2,Ar)=>{Ar.exports="data:image/svg+xml;utf8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%0A%20%20%20xmlns%3Adc%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%22%0A%20%20%20xmlns%3Acc%3D%22http%3A%2F%2Fcreativecommons.org%2Fns%23%22%0A%20%20%20xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A%20%20%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%0A%20%20%20xmlns%3Asodipodi%3D%22http%3A%2F%2Fsodipodi.sourceforge.net%2FDTD%2Fsodipodi-0.dtd%22%0A%20%20%20xmlns%3Ainkscape%3D%22http%3A%2F%2Fwww.inkscape.org%2Fnamespaces%2Finkscape%22%0A%20%20%20width%3D%2220%22%0A%20%20%20height%3D%2220%22%0A%20%20%20viewBox%3D%220%200%205.2916668%205.2916668%22%0A%20%20%20version%3D%221.1%22%0A%20%20%20id%3D%22svg8%22%0A%20%20%20inkscape%3Aversion%3D%221.0.1%20(3bc2e813f5%2C%202020-09-07)%22%0A%20%20%20sodipodi%3Adocname%3D%22menu-icon-save-file.svg%22%3E%0A%20%20%3Cdefs%0A%20%20%20%20%20id%3D%22defs2%22%20%2F%3E%0A%20%20%3Csodipodi%3Anamedview%0A%20%20%20%20%20id%3D%22base%22%0A%20%20%20%20%20pagecolor%3D%22%23ffffff%22%0A%20%20%20%20%20bordercolor%3D%22%23666666%22%0A%20%20%20%20%20borderopacity%3D%221.0%22%0A%20%20%20%20%20inkscape%3Apageopacity%3D%220.0%22%0A%20%20%20%20%20inkscape%3Apageshadow%3D%222%22%0A%20%20%20%20%20inkscape%3Azoom%3D%2231.678384%22%0A%20%20%20%20%20inkscape%3Acx%3D%229.0083838%22%0A%20%20%20%20%20inkscape%3Acy%3D%2210.932754%22%0A%20%20%20%20%20inkscape%3Adocument-units%3D%22mm%22%0A%20%20%20%20%20inkscape%3Acurrent-layer%3D%22layer1%22%0A%20%20%20%20%20inkscape%3Adocument-rotation%3D%220%22%0A%20%20%20%20%20showgrid%3D%22false%22%0A%20%20%20%20%20showguides%3D%22false%22%0A%20%20%20%20%20inkscape%3Awindow-width%3D%221920%22%0A%20%20%20%20%20inkscape%3Awindow-height%3D%221016%22%0A%20%20%20%20%20inkscape%3Awindow-x%3D%220%22%0A%20%20%20%20%20inkscape%3Awindow-y%3D%2227%22%0A%20%20%20%20%20inkscape%3Awindow-maximized%3D%221%22%0A%20%20%20%20%20units%3D%22px%22%0A%20%20%20%20%20fit-margin-top%3D%220%22%0A%20%20%20%20%20fit-margin-left%3D%220%22%0A%20%20%20%20%20fit-margin-right%3D%220%22%0A%20%20%20%20%20fit-margin-bottom%3D%220%22%20%2F%3E%0A%20%20%3Cmetadata%0A%20%20%20%20%20id%3D%22metadata5%22%3E%0A%20%20%20%20%3Crdf%3ARDF%3E%0A%20%20%20%20%20%20%3Ccc%3AWork%0A%20%20%20%20%20%20%20%20%20rdf%3Aabout%3D%22%22%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Aformat%3Eimage%2Fsvg%2Bxml%3C%2Fdc%3Aformat%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Atype%0A%20%20%20%20%20%20%20%20%20%20%20rdf%3Aresource%3D%22http%3A%2F%2Fpurl.org%2Fdc%2Fdcmitype%2FStillImage%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3Cdc%3Atitle%20%2F%3E%0A%20%20%20%20%20%20%3C%2Fcc%3AWork%3E%0A%20%20%20%20%3C%2Frdf%3ARDF%3E%0A%20%20%3C%2Fmetadata%3E%0A%20%20%3Cg%0A%20%20%20%20%20inkscape%3Alabel%3D%22Layer%201%22%0A%20%20%20%20%20inkscape%3Agroupmode%3D%22layer%22%0A%20%20%20%20%20id%3D%22layer1%22%0A%20%20%20%20%20transform%3D%22translate(-4.2333334%2C-2.6458333)%22%3E%0A%20%20%20%20%3Crect%0A%20%20%20%20%20%20%20style%3D%22fill%3Anone%3Bstroke%3A%23404040%3Bstroke-width%3A0.265%3Bstroke-linecap%3Abutt%3Bstroke-linejoin%3Amiter%3Bstroke-miterlimit%3A4%3Bstroke-dasharray%3Anone%3Bstroke-opacity%3A1%22%0A%20%20%20%20%20%20%20id%3D%22rect844%22%0A%20%20%20%20%20%20%20width%3D%223.9683332%22%0A%20%20%20%20%20%20%20height%3D%225.0266666%22%0A%20%20%20%20%20%20%20x%3D%224.895%22%0A%20%20%20%20%20%20%20y%3D%222.7783332%22%20%2F%3E%0A%20%20%20%20%3Cpath%0A%20%20%20%20%20%20%20style%3D%22fill%3Anone%3Bfill-opacity%3A1%3Bstroke%3A%23000000%3Bstroke-width%3A0.265%3Bstroke-linecap%3Around%3Bstroke-linejoin%3Around%3Bstroke-miterlimit%3A4%3Bstroke-dasharray%3Anone%3Bstroke-opacity%3A1%22%0A%20%20%20%20%20%20%20d%3D%22m%206.4822806%2C3.8364581%202.23e-5%2C1.4552085%20H%205.8208334%20L%206.8791667%2C6.6145833%207.9375001%2C5.2916666%20H%207.2760417%20V%203.8364581%20Z%22%0A%20%20%20%20%20%20%20id%3D%22path834%22%0A%20%20%20%20%20%20%20sodipodi%3Anodetypes%3D%22cccccccc%22%20%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A"});var ln=J((To,Dr)=>{Dr.exports="data:image/svg+xml;utf8,%3Csvg%20viewBox%3D%220%200%208%208%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%3Ccircle%20cx%3D%227.5%22%20cy%3D%227.5%22%20fill%3D%22%236664%22%20r%3D%22.5%22%20%2F%3E%3C!--%20to-do%3A%20fix%20color--%3E%0A%3C%2Fsvg%3E"});var gn=J((r0,kr)=>{kr.exports="data:image/svg+xml;utf8,%3Csvg%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%3Cpath%0A%20%20%20%20%20style%3D%22fill%3A%23ffffe6%3Bstroke%3A%239a9a9a%22%0A%20%20%20%20%20d%3D%22M%2010%2C15.5%20H%200.5%20v%20-15%20h%2015%20V%2010%22%0A%20%20%2F%3E%0A%20%20%3Cpath%0A%20%20%20%20style%3D%22fill%3A%23ffffd7%3Bstroke%3A%239a9a9a%22%0A%20%20%20%20d%3D%22m%2010.5%2C10.5%20h%205%20c%200%2C0%20-5%2C5%20-5%2C5%20Z%22%0A%20%20%2F%3E%0A%3C%2Fsvg%3E%0A"});var yn=J((s0,Fr)=>{Fr.exports="data:image/svg+xml;utf8,%3Csvg%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%3Cpath%0A%20%20%20%20style%3D%22fill%3A%23ffffe6%3Bstroke%3A%239a9a9a%22%0A%20%20%20%20d%3D%22M%200.5%2C0.5%20H%2015.5%20V%2012%20L%2014%2C14%2012%2C15.5%20H%200.5%20Z%22%0A%20%20%2F%3E%0A%20%20%3Cpath%0A%20%20%20%20style%3D%22fill%3A%23ffffd7%3Bstroke%3A%239a9a9a%22%0A%20%20%20%20d%3D%22m%2011.5%2C11.5%20h%205%20c%200%2C0%20-5%2C5%20-5%2C5%20Z%22%0A%20%20%2F%3E%0A%0A%20%20%3Cpath%20style%3D%22stroke%3A%23000000%22%20d%3D%22M%202%2C2.5%20H%2014%22%2F%3E%0A%20%20%3Cpath%20style%3D%22stroke%3A%23000000%22%20d%3D%22M%202%2C4.5%20H%2014%22%2F%3E%0A%20%20%3Cpath%20style%3D%22stroke%3A%23000000%22%20d%3D%22M%202%2C6.5%20H%208%22%2F%3E%0A%3C%2Fsvg%3E%0A"});var Me=globalThis,Oe=Me.ShadowRoot&&(Me.ShadyCSS===void 0||Me.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,jt=Symbol(),ri=new WeakMap,Ae=class{constructor(t,e,n){if(this._$cssResult$=!0,n!==jt)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o,e=this.t;if(Oe&&t===void 0){let n=e!==void 0&&e.length===1;n&&(t=ri.get(e)),t===void 0&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),n&&ri.set(e,t))}return t}toString(){return this.cssText}},He=i=>new Ae(typeof i=="string"?i:i+"",void 0,jt),x=(i,...t)=>{let e=i.length===1?i[0]:t.reduce((n,r,s)=>n+(o=>{if(o._$cssResult$===!0)return o.cssText;if(typeof o=="number")return o;throw Error("Value passed to 'css' function must be a 'css' function result: "+o+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(r)+i[s+1],i[0]);return new Ae(e,i,jt)},qt=(i,t)=>{if(Oe)i.adoptedStyleSheets=t.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let e of t){let n=document.createElement("style"),r=Me.litNonce;r!==void 0&&n.setAttribute("nonce",r),n.textContent=e.cssText,i.appendChild(n)}},Ie=Oe?i=>i:i=>i instanceof CSSStyleSheet?(t=>{let e="";for(let n of t.cssRules)e+=n.cssText;return He(e)})(i):i;var{is:Mn,defineProperty:On,getOwnPropertyDescriptor:Hn,getOwnPropertyNames:In,getOwnPropertySymbols:Un,getPrototypeOf:Nn}=Object,Ue=globalThis,si=Ue.trustedTypes,zn=si?si.emptyScript:"",jn=Ue.reactiveElementPolyfillSupport,ge=(i,t)=>i,ye={toAttribute(i,t){switch(t){case Boolean:i=i?zn:null;break;case Object:case Array:i=i==null?i:JSON.stringify(i)}return i},fromAttribute(i,t){let e=i;switch(t){case Boolean:e=i!==null;break;case Number:e=i===null?null:Number(i);break;case Object:case Array:try{e=JSON.parse(i)}catch{e=null}}return e}},Ne=(i,t)=>!Mn(i,t),oi={attribute:!0,type:String,converter:ye,reflect:!1,hasChanged:Ne};Symbol.metadata??=Symbol("metadata"),Ue.litPropertyMetadata??=new WeakMap;var N=class extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=oi){if(e.state&&(e.attribute=!1),this._$Ei(),this.elementProperties.set(t,e),!e.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(t,n,e);r!==void 0&&On(this.prototype,t,r)}}static getPropertyDescriptor(t,e,n){let{get:r,set:s}=Hn(this.prototype,t)??{get(){return this[e]},set(o){this[e]=o}};return{get(){return r?.call(this)},set(o){let d=r?.call(this);s.call(this,o),this.requestUpdate(t,d,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??oi}static _$Ei(){if(this.hasOwnProperty(ge("elementProperties")))return;let t=Nn(this);t.finalize(),t.l!==void 0&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(ge("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(ge("properties"))){let e=this.properties,n=[...In(e),...Un(e)];for(let r of n)this.createProperty(r,e[r])}let t=this[Symbol.metadata];if(t!==null){let e=litPropertyMetadata.get(t);if(e!==void 0)for(let[n,r]of e)this.elementProperties.set(n,r)}this._$Eh=new Map;for(let[e,n]of this.elementProperties){let r=this._$Eu(e,n);r!==void 0&&this._$Eh.set(r,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){let e=[];if(Array.isArray(t)){let n=new Set(t.flat(1/0).reverse());for(let r of n)e.unshift(Ie(r))}else t!==void 0&&e.push(Ie(t));return e}static _$Eu(t,e){let n=e.attribute;return n===!1?void 0:typeof n=="string"?n:typeof t=="string"?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$Eg=new Promise(t=>this.enableUpdating=t),this._$AL=new Map,this._$ES(),this.requestUpdate(),this.constructor.l?.forEach(t=>t(this))}addController(t){(this._$E_??=new Set).add(t),this.renderRoot!==void 0&&this.isConnected&&t.hostConnected?.()}removeController(t){this._$E_?.delete(t)}_$ES(){let t=new Map,e=this.constructor.elementProperties;for(let n of e.keys())this.hasOwnProperty(n)&&(t.set(n,this[n]),delete this[n]);t.size>0&&(this._$Ep=t)}createRenderRoot(){let t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return qt(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$E_?.forEach(t=>t.hostConnected?.())}enableUpdating(t){}disconnectedCallback(){this._$E_?.forEach(t=>t.hostDisconnected?.())}attributeChangedCallback(t,e,n){this._$AK(t,n)}_$EO(t,e){let n=this.constructor.elementProperties.get(t),r=this.constructor._$Eu(t,n);if(r!==void 0&&n.reflect===!0){let s=(n.converter?.toAttribute!==void 0?n.converter:ye).toAttribute(e,n.type);this._$Em=t,s==null?this.removeAttribute(r):this.setAttribute(r,s),this._$Em=null}}_$AK(t,e){let n=this.constructor,r=n._$Eh.get(t);if(r!==void 0&&this._$Em!==r){let s=n.getPropertyOptions(r),o=typeof s.converter=="function"?{fromAttribute:s.converter}:s.converter?.fromAttribute!==void 0?s.converter:ye;this._$Em=r,this[r]=o.fromAttribute(e,s.type),this._$Em=null}}requestUpdate(t,e,n,r=!1,s){if(t!==void 0){if(n??=this.constructor.getPropertyOptions(t),!(n.hasChanged??Ne)(r?s:this[t],e))return;this.C(t,e,n)}this.isUpdatePending===!1&&(this._$Eg=this._$EP())}C(t,e,n){this._$AL.has(t)||this._$AL.set(t,e),n.reflect===!0&&this._$Em!==t&&(this._$Ej??=new Set).add(t)}async _$EP(){this.isUpdatePending=!0;try{await this._$Eg}catch(e){Promise.reject(e)}let t=this.scheduleUpdate();return t!=null&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[r,s]of this._$Ep)this[r]=s;this._$Ep=void 0}let n=this.constructor.elementProperties;if(n.size>0)for(let[r,s]of n)s.wrapped!==!0||this._$AL.has(r)||this[r]===void 0||this.C(r,this[r],s)}let t=!1,e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),this._$E_?.forEach(n=>n.hostUpdate?.()),this.update(e)):this._$ET()}catch(n){throw t=!1,this._$ET(),n}t&&this._$AE(e)}willUpdate(t){}_$AE(t){this._$E_?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$ET(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$Eg}shouldUpdate(t){return!0}update(t){this._$Ej&&=this._$Ej.forEach(e=>this._$EO(e,this[e])),this._$ET()}updated(t){}firstUpdated(t){}};N.elementStyles=[],N.shadowRootOptions={mode:"open"},N[ge("elementProperties")]=new Map,N[ge("finalized")]=new Map,jn?.({ReactiveElement:N}),(Ue.reactiveElementVersions??=[]).push("2.0.2");var Wt=globalThis,ze=Wt.trustedTypes,ai=ze?ze.createPolicy("lit-html",{createHTML:i=>i}):void 0,Gt="$lit$",z=`lit$${(Math.random()+"").slice(9)}$`,Kt="?"+z,qn=`<${Kt}>`,ie=document,xe=()=>ie.createComment(""),we=i=>i===null||typeof i!="object"&&typeof i!="function",ui=Array.isArray,mi=i=>ui(i)||typeof i?.[Symbol.iterator]=="function",Vt=`[ 	
+\f\r]`,ve=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,li=/-->/g,di=/>/g,ee=RegExp(`>|${Vt}(?:([^\\s"'>=/]+)(${Vt}*=${Vt}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`,"g"),ci=/'/g,pi=/"/g,fi=/^(?:script|style|textarea|title)$/i,Ai=i=>(t,...e)=>({_$litType$:i,strings:t,values:e}),b=Ai(1),Mr=Ai(2),P=Symbol.for("lit-noChange"),w=Symbol.for("lit-nothing"),hi=new WeakMap,te=ie.createTreeWalker(ie,129);function gi(i,t){if(!Array.isArray(i)||!i.hasOwnProperty("raw"))throw Error("invalid template strings array");return ai!==void 0?ai.createHTML(t):t}var yi=(i,t)=>{let e=i.length-1,n=[],r,s=t===2?"<svg>":"",o=ve;for(let d=0;d<e;d++){let a=i[d],u,f,c=-1,g=0;for(;g<a.length&&(o.lastIndex=g,f=o.exec(a),f!==null);)g=o.lastIndex,o===ve?f[1]==="!--"?o=li:f[1]!==void 0?o=di:f[2]!==void 0?(fi.test(f[2])&&(r=RegExp("</"+f[2],"g")),o=ee):f[3]!==void 0&&(o=ee):o===ee?f[0]===">"?(o=r??ve,c=-1):f[1]===void 0?c=-2:(c=o.lastIndex-f[2].length,u=f[1],o=f[3]===void 0?ee:f[3]==='"'?pi:ci):o===pi||o===ci?o=ee:o===li||o===di?o=ve:(o=ee,r=void 0);let A=o===ee&&i[d+1].startsWith("/>")?" ":"";s+=o===ve?a+qn:c>=0?(n.push(u),a.slice(0,c)+Gt+a.slice(c)+z+A):a+z+(c===-2?d:A)}return[gi(i,s+(i[e]||"<?>")+(t===2?"</svg>":"")),n]},Ee=class i{constructor({strings:t,_$litType$:e},n){let r;this.parts=[];let s=0,o=0,d=t.length-1,a=this.parts,[u,f]=yi(t,e);if(this.el=i.createElement(u,n),te.currentNode=this.el.content,e===2){let c=this.el.content.firstChild;c.replaceWith(...c.childNodes)}for(;(r=te.nextNode())!==null&&a.length<d;){if(r.nodeType===1){if(r.hasAttributes())for(let c of r.getAttributeNames())if(c.endsWith(Gt)){let g=f[o++],A=r.getAttribute(c).split(z),E=/([.?@])?(.*)/.exec(g);a.push({type:1,index:s,name:E[2],strings:A,ctor:E[1]==="."?qe:E[1]==="?"?Ve:E[1]==="@"?We:re}),r.removeAttribute(c)}else c.startsWith(z)&&(a.push({type:6,index:s}),r.removeAttribute(c));if(fi.test(r.tagName)){let c=r.textContent.split(z),g=c.length-1;if(g>0){r.textContent=ze?ze.emptyScript:"";for(let A=0;A<g;A++)r.append(c[A],xe()),te.nextNode(),a.push({type:2,index:++s});r.append(c[g],xe())}}}else if(r.nodeType===8)if(r.data===Kt)a.push({type:2,index:s});else{let c=-1;for(;(c=r.data.indexOf(z,c+1))!==-1;)a.push({type:7,index:s}),c+=z.length-1}s++}}static createElement(t,e){let n=ie.createElement("template");return n.innerHTML=t,n}};function ne(i,t,e=i,n){if(t===P)return t;let r=n!==void 0?e._$Co?.[n]:e._$Cl,s=we(t)?void 0:t._$litDirective$;return r?.constructor!==s&&(r?._$AO?.(!1),s===void 0?r=void 0:(r=new s(i),r._$AT(i,e,n)),n!==void 0?(e._$Co??=[])[n]=r:e._$Cl=r),r!==void 0&&(t=ne(i,r._$AS(i,t.values),r,n)),t}var je=class{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){let{el:{content:e},parts:n}=this._$AD,r=(t?.creationScope??ie).importNode(e,!0);te.currentNode=r;let s=te.nextNode(),o=0,d=0,a=n[0];for(;a!==void 0;){if(o===a.index){let u;a.type===2?u=new ce(s,s.nextSibling,this,t):a.type===1?u=new a.ctor(s,a.name,a.strings,this,t):a.type===6&&(u=new Ge(s,this,t)),this._$AV.push(u),a=n[++d]}o!==a?.index&&(s=te.nextNode(),o++)}return te.currentNode=ie,r}p(t){let e=0;for(let n of this._$AV)n!==void 0&&(n.strings!==void 0?(n._$AI(t,n,e),e+=n.strings.length-2):n._$AI(t[e])),e++}},ce=class i{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,e,n,r){this.type=2,this._$AH=w,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let t=this._$AA.parentNode,e=this._$AM;return e!==void 0&&t?.nodeType===11&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=ne(this,t,e),we(t)?t===w||t==null||t===""?(this._$AH!==w&&this._$AR(),this._$AH=w):t!==this._$AH&&t!==P&&this._(t):t._$litType$!==void 0?this.g(t):t.nodeType!==void 0?this.$(t):mi(t)?this.T(t):this._(t)}k(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}$(t){this._$AH!==t&&(this._$AR(),this._$AH=this.k(t))}_(t){this._$AH!==w&&we(this._$AH)?this._$AA.nextSibling.data=t:this.$(ie.createTextNode(t)),this._$AH=t}g(t){let{values:e,_$litType$:n}=t,r=typeof n=="number"?this._$AC(t):(n.el===void 0&&(n.el=Ee.createElement(gi(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(e);else{let s=new je(r,this),o=s.u(this.options);s.p(e),this.$(o),this._$AH=s}}_$AC(t){let e=hi.get(t.strings);return e===void 0&&hi.set(t.strings,e=new Ee(t)),e}T(t){ui(this._$AH)||(this._$AH=[],this._$AR());let e=this._$AH,n,r=0;for(let s of t)r===e.length?e.push(n=new i(this.k(xe()),this.k(xe()),this,this.options)):n=e[r],n._$AI(s),r++;r<e.length&&(this._$AR(n&&n._$AB.nextSibling,r),e.length=r)}_$AR(t=this._$AA.nextSibling,e){for(this._$AP?.(!1,!0,e);t&&t!==this._$AB;){let n=t.nextSibling;t.remove(),t=n}}setConnected(t){this._$AM===void 0&&(this._$Cv=t,this._$AP?.(t))}},re=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,n,r,s){this.type=1,this._$AH=w,this._$AN=void 0,this.element=t,this.name=e,this._$AM=r,this.options=s,n.length>2||n[0]!==""||n[1]!==""?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=w}_$AI(t,e=this,n,r){let s=this.strings,o=!1;if(s===void 0)t=ne(this,t,e,0),o=!we(t)||t!==this._$AH&&t!==P,o&&(this._$AH=t);else{let d=t,a,u;for(t=s[0],a=0;a<s.length-1;a++)u=ne(this,d[n+a],e,a),u===P&&(u=this._$AH[a]),o||=!we(u)||u!==this._$AH[a],u===w?t=w:t!==w&&(t+=(u??"")+s[a+1]),this._$AH[a]=u}o&&!r&&this.O(t)}O(t){t===w?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}},qe=class extends re{constructor(){super(...arguments),this.type=3}O(t){this.element[this.name]=t===w?void 0:t}},Ve=class extends re{constructor(){super(...arguments),this.type=4}O(t){this.element.toggleAttribute(this.name,!!t&&t!==w)}},We=class extends re{constructor(t,e,n,r,s){super(t,e,n,r,s),this.type=5}_$AI(t,e=this){if((t=ne(this,t,e,0)??w)===P)return;let n=this._$AH,r=t===w&&n!==w||t.capture!==n.capture||t.once!==n.once||t.passive!==n.passive,s=t!==w&&(n===w||r);r&&this.element.removeEventListener(this.name,this,n),s&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){typeof this._$AH=="function"?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t)}},Ge=class{constructor(t,e,n){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(t){ne(this,t)}},vi={j:Gt,P:z,A:Kt,C:1,M:yi,L:je,R:mi,V:ne,D:ce,I:re,H:Ve,N:We,U:qe,B:Ge},Vn=Wt.litHtmlPolyfillSupport;Vn?.(Ee,ce),(Wt.litHtmlVersions??=[]).push("3.1.0");var xi=(i,t,e)=>{let n=e?.renderBefore??t,r=n._$litPart$;if(r===void 0){let s=e?.renderBefore??null;n._$litPart$=r=new ce(t.insertBefore(xe(),s),s,void 0,e??{})}return r._$AI(i),r};var v=class extends N{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){let e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=xi(e,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return P}};v._$litElement$=!0,v.finalized=!0,globalThis.litElementHydrateSupport?.({LitElement:v});var Wn=globalThis.litElementPolyfillSupport;Wn?.({LitElement:v});(globalThis.litElementVersions??=[]).push("4.0.2");var k=i=>(t,e)=>{e!==void 0?e.addInitializer(()=>{customElements.define(i,t)}):customElements.define(i,t)};var Gn={attribute:!0,type:String,converter:ye,reflect:!1,hasChanged:Ne},Kn=(i=Gn,t,e)=>{let{kind:n,metadata:r}=e,s=globalThis.litPropertyMetadata.get(r);if(s===void 0&&globalThis.litPropertyMetadata.set(r,s=new Map),s.set(e.name,i),n==="accessor"){let{name:o}=e;return{set(d){let a=t.get.call(this);t.set.call(this,d),this.requestUpdate(o,a,i)},init(d){return d!==void 0&&this.C(o,void 0,i),d}}}if(n==="setter"){let{name:o}=e;return function(d){let a=this[o];t.call(this,d),this.requestUpdate(o,a,i)}}throw Error("Unsupported decorator location: "+n)};function F(i){return(t,e)=>typeof e=="object"?Kn(i,t,e):((n,r,s)=>{let o=r.hasOwnProperty(s);return r.constructor.createProperty(s,o?{...n,wrapped:!0}:n),o?Object.getOwnPropertyDescriptor(r,s):void 0})(i,t,e)}function Ke(i){return F({...i,state:!0,attribute:!1})}var se=(i,t,e)=>(e.configurable=!0,e.enumerable=!0,Reflect.decorate&&typeof t!="object"&&Object.defineProperty(i,t,e),e);function W(i,t){return(e,n,r)=>{let s=o=>o.renderRoot?.querySelector(i)??null;if(t){let{get:o,set:d}=typeof n=="object"?e:r??(()=>{let a=Symbol();return{get(){return this[a]},set(u){this[a]=u}}})();return se(e,n,{get(){let a=o.call(this);return a===void 0&&(a=s(this),(a!==null||this.hasUpdated)&&d.call(this,a)),a}})}return se(e,n,{get(){return s(this)}})}}var Xt=(()=>{if(typeof self>"u")return!1;if("top"in self&&self!==top)try{top.window.document._=0}catch{return!1}return"showOpenFilePicker"in self})(),Xn=Xt?Promise.resolve().then(function(){return Qn}):Promise.resolve().then(function(){return sr});async function wi(...i){return(await Xn).default(...i)}var E2=Xt?Promise.resolve().then(function(){return tr}):Promise.resolve().then(function(){return ar});var Yn=Xt?Promise.resolve().then(function(){return nr}):Promise.resolve().then(function(){return dr});async function Ei(...i){return(await Yn).default(...i)}var Zn=async i=>{let t=await i.getFile();return t.handle=i,t},Jn=async(i=[{}])=>{Array.isArray(i)||(i=[i]);let t=[];i.forEach((r,s)=>{t[s]={description:r.description||"Files",accept:{}},r.mimeTypes?r.mimeTypes.map(o=>{t[s].accept[o]=r.extensions||[]}):t[s].accept["*/*"]=r.extensions||[]});let e=await window.showOpenFilePicker({id:i[0].id,startIn:i[0].startIn,types:t,multiple:i[0].multiple||!1,excludeAcceptAllOption:i[0].excludeAcceptAllOption||!1}),n=await Promise.all(e.map(Zn));return i[0].multiple?n:n[0]},Qn={__proto__:null,default:Jn};function Xe(i){function t(e){if(Object(e)!==e)return Promise.reject(new TypeError(e+" is not an object."));var n=e.done;return Promise.resolve(e.value).then(function(r){return{value:r,done:n}})}return Xe=function(e){this.s=e,this.n=e.next},Xe.prototype={s:null,n:null,next:function(){return t(this.n.apply(this.s,arguments))},return:function(e){var n=this.s.return;return n===void 0?Promise.resolve({value:e,done:!0}):t(n.apply(this.s,arguments))},throw:function(e){var n=this.s.return;return n===void 0?Promise.reject(e):t(n.apply(this.s,arguments))}},new Xe(i)}var bi=async(i,t,e=i.name,n)=>{let r=[],s=[];var o,d=!1,a=!1;try{for(var u,f=function(c){var g,A,E,S=2;for(typeof Symbol<"u"&&(A=Symbol.asyncIterator,E=Symbol.iterator);S--;){if(A&&(g=c[A])!=null)return g.call(c);if(E&&(g=c[E])!=null)return new Xe(g.call(c));A="@@asyncIterator",E="@@iterator"}throw new TypeError("Object is not async iterable")}(i.values());d=!(u=await f.next()).done;d=!1){let c=u.value,g=`${e}/${c.name}`;c.kind==="file"?s.push(c.getFile().then(A=>(A.directoryHandle=i,A.handle=c,Object.defineProperty(A,"webkitRelativePath",{configurable:!0,enumerable:!0,get:()=>g})))):c.kind!=="directory"||!t||n&&n(c)||r.push(bi(c,t,g,n))}}catch(c){a=!0,o=c}finally{try{d&&f.return!=null&&await f.return()}finally{if(a)throw o}}return[...(await Promise.all(r)).flat(),...await Promise.all(s)]},er=async(i={})=>{i.recursive=i.recursive||!1,i.mode=i.mode||"read";let t=await window.showDirectoryPicker({id:i.id,startIn:i.startIn,mode:i.mode});return(await(await t.values()).next()).done?[t]:bi(t,i.recursive,void 0,i.skipDirectory)},tr={__proto__:null,default:er},ir=async(i,t=[{}],e=null,n=!1,r=null)=>{Array.isArray(t)||(t=[t]),t[0].fileName=t[0].fileName||"Untitled";let s=[],o=null;if(i instanceof Blob&&i.type?o=i.type:i.headers&&i.headers.get("content-type")&&(o=i.headers.get("content-type")),t.forEach((u,f)=>{s[f]={description:u.description||"Files",accept:{}},u.mimeTypes?(f===0&&o&&u.mimeTypes.push(o),u.mimeTypes.map(c=>{s[f].accept[c]=u.extensions||[]})):o?s[f].accept[o]=u.extensions||[]:s[f].accept["*/*"]=u.extensions||[]}),e)try{await e.getFile()}catch(u){if(e=null,n)throw u}let d=e||await window.showSaveFilePicker({suggestedName:t[0].fileName,id:t[0].id,startIn:t[0].startIn,types:s,excludeAcceptAllOption:t[0].excludeAcceptAllOption||!1});!e&&r&&r(d);let a=await d.createWritable();return"stream"in i?(await i.stream().pipeTo(a),d):"body"in i?(await i.body.pipeTo(a),d):(await a.write(await i),await a.close(),d)},nr={__proto__:null,default:ir},rr=async(i=[{}])=>(Array.isArray(i)||(i=[i]),new Promise((t,e)=>{let n=document.createElement("input");n.type="file";let r=[...i.map(a=>a.mimeTypes||[]),...i.map(a=>a.extensions||[])].join();n.multiple=i[0].multiple||!1,n.accept=r||"",n.style.display="none",document.body.append(n);let s=a=>{typeof o=="function"&&o(),t(a)},o=i[0].legacySetup&&i[0].legacySetup(s,()=>o(e),n),d=()=>{window.removeEventListener("focus",d),n.remove()};n.addEventListener("click",()=>{window.addEventListener("focus",d)}),n.addEventListener("change",()=>{window.removeEventListener("focus",d),n.remove(),s(n.multiple?Array.from(n.files):n.files[0])}),"showPicker"in HTMLInputElement.prototype?n.showPicker():n.click()})),sr={__proto__:null,default:rr},or=async(i=[{}])=>(Array.isArray(i)||(i=[i]),i[0].recursive=i[0].recursive||!1,new Promise((t,e)=>{let n=document.createElement("input");n.type="file",n.webkitdirectory=!0;let r=o=>{typeof s=="function"&&s(),t(o)},s=i[0].legacySetup&&i[0].legacySetup(r,()=>s(e),n);n.addEventListener("change",()=>{let o=Array.from(n.files);i[0].recursive?i[0].recursive&&i[0].skipDirectory&&(o=o.filter(d=>d.webkitRelativePath.split("/").every(a=>!i[0].skipDirectory({name:a,kind:"directory"})))):o=o.filter(d=>d.webkitRelativePath.split("/").length===2),r(o)}),"showPicker"in HTMLInputElement.prototype?n.showPicker():n.click()})),ar={__proto__:null,default:or},lr=async(i,t={})=>{Array.isArray(t)&&(t=t[0]);let e=document.createElement("a"),n=i;"body"in i&&(n=await async function(o,d){let a=o.getReader(),u=new ReadableStream({start:g=>async function A(){return a.read().then(({done:E,value:S})=>{if(!E)return g.enqueue(S),A();g.close()})}()}),f=new Response(u),c=await f.blob();return a.releaseLock(),new Blob([c],{type:d})}(i.body,i.headers.get("content-type"))),e.download=t.fileName||"Untitled",e.href=URL.createObjectURL(await n);let r=()=>{typeof s=="function"&&s()},s=t.legacySetup&&t.legacySetup(r,()=>s(),e);return e.addEventListener("click",()=>{setTimeout(()=>URL.revokeObjectURL(e.href),3e4),r()}),e.click(),null},dr={__proto__:null,default:lr};var Di=".text",$i="text/plain",ki=[Di,".md",".txt"];async function Fi(){let i;try{i=await wi({mimeTypes:[$i],extensions:[...ki],description:"Plain Text Files"})}catch(t){if(_i(t))return;throw t}return{file:i,handle:i.handle}}async function Ci(i){return i.handle?{file:await i.handle.getFile(),handle:i.handle}:i}function Ti(i,t){return i.file.lastModified<t.file.lastModified}async function Yt(i,t){let e;try{e=await Ei(new Blob([t],{type:$i}),{fileName:i?.file.name??`untitled${Di}`,extensions:[...ki]},i?.handle)}catch(n){if(_i(n))return i;throw n}return e?{file:await e.getFile(),handle:e}:i}function _i(i){return i instanceof DOMException?i.name==="AbortError"||i.name==="NotAllowedError":!1}function B(i,t,e){return i.up=t,i.down??=[],t&&(t.down??=[],t.down.splice(e<0?t.down.length+1+e:e,0,i)),i}function Ye(i){if(!i.up)return i;let t=i.up.down?.indexOf(i)??-1;if(t===-1)throw Error("up missing down tree");return i.up.down.splice(t,1),i}function j(i){for(;i.up;)i=i.up;return i}function q(i){let t={...i};for(let n of i.down??[])n.up=t;if(!i.up)return t;let e=i.up.down?.indexOf(i)??-1;if(e===-1)throw Error("up missing down tree");return i.up.down[e]=t,q(i.up),t}function cr(){let i=0;return()=>i++}var Zt=cr();function D(i,t,e=Zt){let n={down:[],id:e(),indentW:t,type:"TextTree"},r,s=0;for(let{start:o,text:d,end:a}of hr(i)){if(!d&&!o){let f=n.down.at(-1)??B({id:e(),type:"Group"},n,-1);s=0,B({id:e(),end:a,type:"EOL"},f,-1);continue}let u=pr(o,t);if(u&&n.down.at(-1)?.down.at(-1)?.type==="EOL"){let f=Ye(n.down.at(-1).down.at(-1));s=r?r.indent+1:0,r=B({end:f.end,expand:!1,id:f.id,indent:s,text:"",type:"Line"},r??f.up,-1)}if(n.down.length===0||n.down.at(-1).down.at(-1)?.type==="EOL"){let f=B({id:e(),type:"Group"},n,-1);s=0,r=B({end:a,expand:!1,id:e(),indent:s,text:d,type:"Line"},f,-1);continue}for(;r.up.type==="Line"&&u<s;)r=r.up,s--;u===s?r=B({end:a,expand:!1,id:e(),indent:s,text:d,type:"Line"},r.up,-1):(s=u,r=B({end:a,expand:!1,id:e(),indent:s,text:d,type:"Line"},r,-1))}return n}D.addLine=(i,t,e,n=Zt)=>{let r,s,o;if(i.type==="Group"){if(t!=="In")throw Error("adding to group requires in position");o=i,s=0,r=0}else o=t==="In"?i:i.up,s=i.indent+(t==="In"?1:0),r=o.down.indexOf(i)+(t==="Start"?0:1);let d=B({end:e,expand:!1,id:n(),indent:s,text:"",type:"Line"},o,r);return j(q(d))};D.breakLine=(i,t,e,n=Zt)=>{if(t<0||t>i.text.length)return{root:j(i),new:i};let r=i.text.slice(0,t),s=i.text.slice(t);i.text=r,i=q(i);let o=B({end:e,expand:!1,id:n(),indent:i.indent,text:s,type:"Line"},i.up,i.up.down.indexOf(i)+1);return{root:j(o),new:o}};D.moveLine=(i,t,e)=>{if(i===t)return j(i);let n,r,s;if(t.type==="Group"){if(e!=="In")throw Error("adding to group requires in position");s=t,r=0,n=0}else s=e==="In"?t:t.up,r=t.indent+(e==="In"?1:0),n=s.down.indexOf(t)+(e==="Start"?0:1);let o=i.up;return Ye(i),B(i,s,n),i.indent=r,t.type==="Line"&&e==="In"&&(t.expand=!0),q(o),j(q(i))};D.removeLine=i=>(Ye(i),j(q(i.up)));D.setLineText=(i,t)=>(i.text=t.replaceAll(/\r?\n/g,""),j(q(i)));D.setLineExpand=(i,t)=>(i.expand=t,j(q(i)));D.toString=i=>Ze([i],i.indentW);function Li(i){return i==="LF"?`
+`:i==="CRLF"?`\r
+`:i}function pr(i,t){let e=0;for(let n of i)if(n===" ")e+=1/(t==="Tab"?2:t);else if(n==="	")e++;else break;return Math.floor(e)}function Ze(i,t){let e="";for(let n of i)if(n.type==="TextTree")e+=Ze(n.down,t);else if(n.type==="EOL")e+=Li(n.end);else if(n.type==="Group")e+=Ze(n.down,t);else if(n.type==="Line"){let r=(t==="Tab"?"	":" ".repeat(t)).repeat(n.indent);e+=`${r}${n.text}${Li(n.end)}${Ze(n.down,t)}`}return e}function*hr(i){let t="",e="",n="";for(let r of i)e?r===`
+`?(e.at(-1)==="\r"?(n="CRLF",e=e.slice(0,-1)):n="LF",yield{start:t,text:e,end:n},t=e=n=""):e+=r:r===" "||r==="	"?t+=r:r===`
+`?(n="LF",yield{start:t,text:e,end:n},t=e=n=""):e+=r;(t||e||n)&&(yield{start:t,text:e,end:n})}var Si="linearText";function Ri(i,t,e){let n={filename:i,saved:t,text:D.toString(e),version:1};localStorage.setItem(Si,JSON.stringify(n))}function Pi(){let i=localStorage.getItem(Si);if(i)return JSON.parse(i)}var C=x`
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box; /* Dimensions include any border and padding. */
+  }
+`;function T(i,t){return new CustomEvent(i,{bubbles:!0,composed:!0,detail:t})}var oe=class extends v{constructor(){super(...arguments);this.disabled=!1;this.icon=""}render(){let e=this.icon?b`<img
+          accesskey=${this.accessKey}
+          decoding="sync"
+          loading="eager"
+          src=${this.icon}
+        />`:w;return b`<button ?disabled=${this.disabled}>
+      ${e}<slot></slot>
+    </button>`}};oe.styles=x`
+    ${C}
+
+    :host {
+      display: inline-block;
+      width: fit-content;
+      height: fit-content;
+      margin: 2px;
+    }
+
+    /* Default button styles. Medium size. */
+    button {
+      /* Center the content. */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      column-gap: 4px;
+
+      /* Clear blue wash when interacting on mobile. */
+      /* -webkit-tap-highlight-color: transparent; */
+
+      /* Buttons have rounded corners, thin grey borders, and slightly extrude. */
+      border-width: 0.5px;
+      border-style: outset;
+      border-color: #ccc;
+      border-radius: 2px;
+
+      background-color: #efefef;
+
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+
+      /* Inherit font. */
+      font-family: inherit;
+      font-size: inherit;
+      font-stretch: inherit;
+      font-style: inherit;
+      font-variant: inherit;
+      font-variant-caps: small-caps;
+      font-weight: inherit;
+      line-height: inherit;
+
+      /* Don't allow content highlights. */
+      /* user-select: none; */
+
+      /* Label must appear on one line. */
+      white-space: nowrap;
+
+      /* --min-press-size: 24px;
+      min-width: var(--min-press-size);
+      min-height: var(--min-press-size); */
+      padding: 4px;
+    }
+
+    button[disabled] {
+      /* Fade disabled button. */
+      opacity: 0.5;
+    }
+
+    button:not([disabled]):active {
+      border-style: inset;
+    }
+
+    button:not([disabled]):hover {
+      background-color: #f0f2f0;
+    }
+
+    img {
+      display: inline-block;
+      /* Disable dragging. vs user-select in line-input*/
+      -webkit-user-drag: none;
+      width: 16px;
+      height: 16px;
+    }
+  `,m([F({type:Boolean})],oe.prototype,"disabled",2),m([F()],oe.prototype,"icon",2),oe=m([k("button-el")],oe);var gr=(await Promise.resolve().then(()=>Q(Bi()))).default,yr=(await Promise.resolve().then(()=>Q(Mi()))).default,vr=(await Promise.resolve().then(()=>Q(Oi()))).default,xr=(await Promise.resolve().then(()=>Q(Hi()))).default,be=class extends v{render(){return b`
+      <button-el
+        accesskey="o"
+        icon=${gr}
+        title="Load file [alt-o]."
+        @click=${()=>this.dispatchEvent(T("open-file",void 0))}
+      >
+        Open…</button-el
+      ><button-el
+        accesskey="s"
+        icon=${xr}
+        title="Write file [alt-s]."
+        @click=${()=>this.dispatchEvent(T("save-file",void 0))}
+      >
+        Save</button-el
+      ><button-el
+        icon=${vr}
+        title="Open file save dialog."
+        @click=${()=>this.dispatchEvent(T("save-file-as",void 0))}
+      >
+        Save As…</button-el
+      ><button-el
+        accesskey="n"
+        icon=${yr}
+        title="Load empty file [alt-n]."
+        @click=${()=>this.dispatchEvent(T("new-file",void 0))}
+      >
+        New
+      </button-el>
+    `}};be.styles=x`
+    ${C}
+
+    :host {
+      display: flex;
+      padding: 4px;
+      border-radius: 2px;
+
+      padding: 2px;
+      border-width: 1px;
+      border-top-color: #ccc;
+      border-left-color: #ccc;
+      border-right-color: #ccc;
+      border-bottom-color: #000;
+      border-style: solid;
+      border-radius: 2px;
+      background-color: #f0f2f0;
+    }
+  `,be=m([k("app-menu")],be);var Je={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},pe=i=>(...t)=>({_$litDirective$:i,values:t}),G=class{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,n){this._$Ct=t,this._$AM=e,this._$Ci=n}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}};var{D:wr}=vi;var Ii=()=>document.createComment(""),he=(i,t,e)=>{let n=i._$AA.parentNode,r=t===void 0?i._$AB:t._$AA;if(e===void 0){let s=n.insertBefore(Ii(),r),o=n.insertBefore(Ii(),r);e=new wr(s,o,i,i.options)}else{let s=e._$AB.nextSibling,o=e._$AM,d=o!==i;if(d){let a;e._$AQ?.(i),e._$AM=i,e._$AP!==void 0&&(a=i._$AU)!==o._$AU&&e._$AP(a)}if(s!==r||d){let a=e._$AA;for(;a!==s;){let u=a.nextSibling;n.insertBefore(a,r),a=u}}}return e},K=(i,t,e=i)=>(i._$AI(t,e),i),Er={},Qe=(i,t=Er)=>i._$AH=t,Ui=i=>i._$AH,et=i=>{i._$AP?.(!1,!0);let t=i._$AA,e=i._$AB.nextSibling;for(;t!==e;){let n=t.nextSibling;t.remove(),t=n}};var Ni=(i,t,e)=>{let n=new Map;for(let r=t;r<=e;r++)n.set(i[r],r);return n},tt=pe(class extends G{constructor(i){if(super(i),i.type!==Je.CHILD)throw Error("repeat() can only be used in text expressions")}ht(i,t,e){let n;e===void 0?e=t:t!==void 0&&(n=t);let r=[],s=[],o=0;for(let d of i)r[o]=n?n(d,o):o,s[o]=e(d,o),o++;return{values:s,keys:r}}render(i,t,e){return this.ht(i,t,e).values}update(i,[t,e,n]){let r=Ui(i),{values:s,keys:o}=this.ht(t,e,n);if(!Array.isArray(r))return this.dt=o,s;let d=this.dt??=[],a=[],u,f,c=0,g=r.length-1,A=0,E=s.length-1;for(;c<=g&&A<=E;)if(r[c]===null)c++;else if(r[g]===null)g--;else if(d[c]===o[A])a[A]=K(r[c],s[A]),c++,A++;else if(d[g]===o[E])a[E]=K(r[g],s[E]),g--,E--;else if(d[c]===o[E])a[E]=K(r[c],s[E]),he(i,a[E+1],r[c]),c++,E--;else if(d[g]===o[A])a[A]=K(r[g],s[A]),he(i,r[c],r[g]),g--,A++;else if(u===void 0&&(u=Ni(o,A,E),f=Ni(d,c,g)),u.has(d[c]))if(u.has(d[g])){let S=f.get(o[A]),Ut=S!==void 0?r[S]:null;if(Ut===null){let ii=he(i,r[c]);K(ii,s[A]),a[A]=ii}else a[A]=K(Ut,s[A]),he(i,r[c],Ut),r[S]=null;A++}else et(r[g]),g--;else et(r[c]),c++;for(;A<=E;){let S=he(i,a[E+1]);K(S,s[A]),a[A++]=S}for(;c<=g;){let S=r[c++];S!==null&&et(S)}return this.dt=o,Qe(i,a),P}});function zi(){document.activeElement instanceof HTMLElement&&document.activeElement.blur()}function it(i){if(i.parentElement)return i.parentElement;let t=i.getRootNode();if(t instanceof ShadowRoot)return t.host}function Jt(i,t){let e=t.closest(i);if(e)return e;let n=it(t);if(n)return Jt(i,n)}function nt(i){let t=getComputedStyle(i);if(t.overflow==="auto"||t.overflow==="scroll")return i;let e=it(i);if(e)return nt(e)}function ji(i,t){for(let e=document.elementFromPoint(i,t);;){let n=e?.shadowRoot?.elementFromPoint(i,t);if(!n||e===n)return e;e=n}}function qi(i,t,e,n){let r=t.x<e?-1:t.x>i.clientWidth-e?1:0,s=t.y<e?-1:t.y>i.clientHeight-e?1:0;i.scrollLeft=i.scrollLeft+r*n,i.scrollTop=i.scrollTop+s*n}var Vi=pe(class extends G{constructor(){super(...arguments),this.key=w}render(i,t){return this.key=i,t}update(i,[t,e]){return t!==this.key&&(Qe(i),this.key=t),e}});var Wi=pe(class extends G{constructor(i){if(super(i),i.type!==Je.ATTRIBUTE||i.name!=="class"||i.strings?.length>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(i){return" "+Object.keys(i).filter(t=>i[t]).join(" ")+" "}update(i,[t]){if(this.it===void 0){this.it=new Set,i.strings!==void 0&&(this.st=new Set(i.strings.join(" ").split(/\s/).filter(n=>n!=="")));for(let n in t)t[n]&&!this.st?.has(n)&&this.it.add(n);return this.render(t)}let e=i.element.classList;for(let n of this.it)n in t||(e.remove(n),this.it.delete(n));for(let n in t){let r=!!t[n];r===this.it.has(n)||this.st?.has(n)||(r?(e.add(n),this.it.add(n)):(e.remove(n),this.it.delete(n)))}return P}});var Gi=i=>i??w;var X,De,Qt,rt,Ki,st,Xi,ot,Yi,at,Zi,lt,Ji,dt,Qi,ct,en,pt,tn,M=class extends v{constructor(){super();p(this,De);p(this,rt);p(this,st);p(this,ot);p(this,at);p(this,lt);p(this,dt);p(this,ct);p(this,pt);this.context={};this.text="";this._spellcheck=!1;p(this,X,void 0);this.addEventListener("click",()=>this._p.focus())}render(){return this.context.focus?.line===this.line&&requestAnimationFrame(()=>{this._p.focus(),this.context.focus?.startOfLine&&h(this,De,Qt).call(this)?.setPosition(this._p,0)}),b`
+      <p
+        contenteditable="true"
+        .innerText=${l(this,X)??""}
+        role="textbox"
+        spellcheck="${this._spellcheck}"
+        tabindex="0"
+        @beforeinput=${h(this,st,Xi)}
+        @blur=${h(this,ot,Yi)}
+        @click=${h(this,at,Zi)}
+        @dragstart=${h(this,lt,Ji)}
+        @keyup=${h(this,ct,en)}
+        @focus=${h(this,dt,Qi)}
+        @input=${h(this,pt,tn)}
+      ></p>
+    `}shouldUpdate(e){let n=super.shouldUpdate(e);return this.text===l(this,X)&&!e.has("_spellcheck")?!1:(y(this,X,this.text),n)}};X=new WeakMap,De=new WeakSet,Qt=function(){return this.renderRoot.getSelection?.()??getSelection()},rt=new WeakSet,Ki=function(){return h(this,De,Qt).call(this)?.getRangeAt(0).startOffset??0},st=new WeakSet,Xi=function(e){if(/^(delete|history)/.test(e.inputType))return;if(e.preventDefault(),/insert(?:LineBreak|Paragraph)/.test(e.inputType)){this.dispatchEvent(T("break-text",h(this,rt,Ki).call(this)));return}if(!/^insert/.test(e.inputType))return;let r=(e.data??e.dataTransfer?.getData("text"))?.replaceAll(/\r?\n/g,"");r&&document.execCommand("insertText",!1,r)},ot=new WeakSet,Yi=function(){getSelection()?.empty(),this._spellcheck=!1,this.line&&this.dispatchEvent(T("blur-line",this.line))},at=new WeakSet,Zi=function(){this._p.focus()},lt=new WeakSet,Ji=function(e){e.preventDefault()},dt=new WeakSet,Qi=function(){if(this._spellcheck=!0,this.line&&this.dispatchEvent(T("focus-line",this.line)),this.context.focus?.startOfLine)return;let e=getSelection();if(!e)return;let n=document.createRange();n.selectNodeContents(this._p),n.collapse(!1),e.removeAllRanges(),e.addRange(n)},ct=new WeakSet,en=function(e){e.key==="Escape"&&this.blur()},pt=new WeakSet,tn=function(){y(this,X,this._p.textContent?.replaceAll(`
+`,"")??""),this.dispatchEvent(T("edit-text",l(this,X)))},M.styles=x`
+    ${C}
+
+    ::selection {
+      background-color: var(--shade-bright-yellow);
+    }
+
+    p {
+      display: inline;
+      /* break words if needed*/
+      overflow-wrap: break-word;
+    }
+    p::before {
+      /* force minimum height for empty text areas */
+      float: left;
+      content: '';
+      display: block;
+      min-height: 15.5px;
+    }
+
+    p:not(:focus) {
+      /* Disable text selection which may interfere with dragging. */
+      user-select: none;
+    }
+
+    p:focus {
+      cursor: text;
+      /* Disable Chrome and Firefox focus outline which is indicated by higher
+         level elements. */
+      outline-style: none;
+    }
+  `,m([F({attribute:!1})],M.prototype,"context",2),m([F({attribute:!1})],M.prototype,"line",2),m([F()],M.prototype,"text",2),m([W("p")],M.prototype,"_p",2),m([Ke()],M.prototype,"_spellcheck",2),M=m([k("line-input")],M);var ht,nn,ut,rn,mt,sn,ft,on,At,an,Y=class extends v{constructor(){super(...arguments);p(this,ht);p(this,ut);p(this,mt);p(this,ft);p(this,At);this.context={}}render(){return b`
+      <div class="note">
+        <div class="input-wrapper" @click=${h(this,ht,nn)}>
+          <line-input
+            .context=${this.context}
+            .line=${this.line}
+            text=${Gi(this.line?.text)}
+            @blur=${h(this,mt,sn)}
+            @break-text=${h(this,ft,on)}
+            @edit-text=${h(this,At,an)}
+          ></line-input
+          ><button
+            class=${Wi({hidden:!this.line?.down.length})}
+            @click=${h(this,ut,rn)}
+            title="Toggle sub-lines."
+          >…</button>
+        </div>
+      </div>
+      <line-list
+      .context=${this.context}
+        ?data-expand=${!this.line?.down.length||this.line?.expand}
+        .list=${this.line}
+      ></line-list>
+    `}get rect(){return this.renderRoot.querySelector(".note").getBoundingClientRect()}};ht=new WeakSet,nn=function(){this._input.click()},ut=new WeakSet,rn=function(e){e.stopPropagation(),this.line&&this.dispatchEvent(T("expand-line",{line:this.line,expand:!this.line?.expand}))},mt=new WeakSet,sn=function(){!this.line||this.line.text||this.line.down.length||this.dispatchEvent(T("remove-line",{line:this.line}))},ft=new WeakSet,on=function(e){this.line&&this.dispatchEvent(T("break-line",{line:this.line,at:e.detail}))},At=new WeakSet,an=function(e){this.line&&this.dispatchEvent(T("edit-line",{line:this.line,text:e.detail}))},Y.styles=x`
+    ${C}
+
+    :host {
+      contain: content;
+      --indent: 8px;
+    }
+
+    .note {
+      border-radius: 1px;
+      border-width: 0.5px;
+      border-color: #888;
+      border-style: solid;
+
+      padding-top: 8px;
+      padding-right: 6px;
+      padding-bottom: 6px;
+      padding-left: 6px;
+
+      background-color: var(--shade-yellow);
+      color: var(--color, --shade-black);
+
+      /* Show a pointing finger for the whole note except input. */
+      cursor: grab;
+
+      min-height: 24px;
+      width: var(--note-card-width);
+      
+		}
+
+    .input-wrapper {
+      cursor: pointer;
+    }
+    .input-wrapper:focus-within {
+      cursor: text;
+    }
+    /* display inline on p, make dogear separate inline el */
+
+    .note:hover,
+    .note:focus-within,
+    :host(.ghost) > .note {
+      background-color: rgb(255, 255, 215);
+    }
+
+    :host(.picked) {
+      opacity: 0.3;
+      --color: #0000; /* Hide text on self and child notes. */
+    }
+
+    .note:focus-within {
+      border-color: black;
+    }
+
+    button {
+      background-color: #0000;
+      border-style: none;
+      cursor: pointer;
+      color: inherit;
+      padding-inline: 2px;
+      padding-block: 0; /* Avoid subtle layout shift for new parents. */
+    }
+
+    line-input {
+      cursor: pointer;
+    }
+
+    .note::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .hidden {
+      display:none;
+    }
+
+    button:hover {
+      /* to-do: vars */
+      background-color: #0001;
+    }
+
+    button {
+      float: right;
+    }
+
+    .input-wrapper::after {
+      content: '';
+      display:block;
+      clear: both;
+    }
+
+
+    line-list:not([data-expand]) {
+      /* Hide collapsed children. */
+      display: none;
+    }
+  `,m([F({attribute:!1})],Y.prototype,"context",2),m([F({attribute:!1})],Y.prototype,"line",2),m([W("line-input")],Y.prototype,"_input",2),Y=m([k("note-card")],Y);var O=class extends v{constructor(){super();this.context={};this._invalidate=Symbol();this.addEventListener("drag-line-invalidate",e=>{this._invalidate=Symbol(),e.stopPropagation()})}render(){let e=tt(this.list?.down??[],n=>n.id,n=>n.type==="EOL"?w:b`<drag-line><note-card .context=${this.context} .line=${n}></note-card></drag-line>`);return b`${Vi(this._invalidate,e)}`}};O.styles=x`
+    ${C}
+
+    :host {
+      display: flex;
+      align-items: flex-start; /* Default is stretch which causes dragged children to be too wide. */
+      flex-direction: column;
+      /* Keep area when empty. */
+      min-width: var(--note-card-width);
+      min-height: 100%;
+    }
+
+    drag-line {
+      margin-top: 1px;
+    }
+
+    :not(:empty) {
+      margin-inline-start: var(--indent);
+    }
+  `,m([F({attribute:!1})],O.prototype,"context",2),m([F({attribute:!1})],O.prototype,"list",2),m([Ke()],O.prototype,"_invalidate",2),O=m([k("line-list")],O);var $,gt,yt,vt,ke,ei,H=class extends v{constructor(){super();p(this,ke);p(this,$,void 0);p(this,gt,e=>{e.stopPropagation(),!e.isTrusted&&l(this,$)&&(l(this,$).ghost.remove(),this.classList.remove("picked"),$e(this)?.classList.remove("picked"),l(this,$).over&&(this.dispatchEvent(T("drag-line-end",{from:l(this,$).line,to:l(this,$).over.line,at:l(this,$).over.at})),l(this,$).parent.dispatchEvent(T("drag-line-invalidate",void 0)),this.dispatchEvent(T("drag-line-invalidate",void 0)),this.remove(),y(this,$,void 0)))});p(this,yt,e=>{if(e.stopPropagation(),e.isTrusted||!l(this,$))return;let n=nt(this);if(!n)throw Error("missing scrollable ancestor");h(this,ke,ei).call(this,n,e),n&&qi(n,{x:e.clientX,y:e.clientY},32,4);let r=ji(e.pageX,e.pageY);if(!r)return;let s=Jt("drag-line, line-list",r);if(!s)return;let o=s instanceof H?$e(s)?.line:void 0;if(!o)return;let d=br(e,this,s),a;switch(d){case"append":case"prepend":{d="prepend",a="In";let u;s instanceof H?u=$e(s).renderRoot.querySelector("line-list"):u=s,u.renderRoot[d](this);break}case"after":a="End",s[d](this);break;case"before":a="Start",s[d](this);break;default:return}l(this,$).over={at:a,line:o}});p(this,vt,e=>{if(e.stopPropagation(),e.isTrusted)return;let n=$e(this);if(n?.line==null)return;let r=nt(this);if(!r)throw Error("missing scrollable ancestor");let s=it(this);if(!s)throw Error("missing parent");y(this,$,{cursor:{x:e.offsetX,y:e.offsetY},ghost:this.cloneNode(!0),line:n.line,parent:s}),this.classList.add("picked"),n.classList.add("picked"),l(this,$).ghost.children[0]&&(l(this,$).ghost.children[0].line=n.line,l(this,$).ghost.children[0].classList.add("ghost")),l(this,$).ghost.classList.add("ghost"),h(this,ke,ei).call(this,r,e),r.appendChild(l(this,$).ghost),zi(),this.dispatchEvent(T("drag-line-start",void 0))});this.addEventListener("drag",l(this,yt)),this.addEventListener("dragend",l(this,gt)),this.addEventListener("dragstart",l(this,vt))}render(){return b`<slot></slot>`}};$=new WeakMap,gt=new WeakMap,yt=new WeakMap,vt=new WeakMap,ke=new WeakSet,ei=function(e,n){if(!l(this,$))return;let r=this.getBoundingClientRect(),s=Math.max(0,Math.min(e.scrollLeft+n.pageX-l(this,$).cursor.x,e.scrollWidth-r.width-1)),o=Math.max(0,Math.min(e.scrollTop+n.pageY-l(this,$).cursor.y,e.scrollHeight-r.height-1));l(this,$).ghost.style.translate=`${s}px ${o}px`},H.styles=x`
+    ${C}
+
+    :host(.picked) {
+      pointer-events: none; /* Ignore elementFromPoint(). */
+    }
+
+    :host(.ghost) {
+      /* Position relative scrollable top-left. */
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      pointer-events: none; /* Ignore elementFromPoint(). */
+    }
+  `,H=m([k("drag-line")],H);function br(i,t,e){if(e.contains(t))return"none";if(e instanceof O)return"append";let n=$e(e);if(!n)return"none";let r=n.rect,s={x:i.pageX-r.x,y:i.pageY-r.y},o=s.y/r.height<.5,d=s.x/r.width>=.5,a=n.line?.expand;return o?e.previousElementSibling===t?"none":"before":a?"prepend":d&&!n.line?.down.length?"append":e.nextElementSibling===t?"none":"after"}function $e(i){return i.renderRoot.querySelector("slot").assignedElements()[0]}var _,xt,wt,Ce,Te,Fe=class extends v{constructor(){super();p(this,_,void 0);p(this,xt,e=>{l(this,_)&&e.preventDefault()});p(this,wt,e=>{if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||!e.isPrimary||e.buttons!==1||!e.composedPath().some(r=>r instanceof H))return;let n=e.composedPath()[0];n instanceof HTMLElement&&(n.isContentEditable&&n.matches(":focus")||(e.preventDefault(),y(this,_,{ev:e,start:{x:e.clientX,y:e.clientY},target:n,timer:setInterval(()=>l(this,Ce).call(this,l(this,_).ev),10)})))});p(this,Ce,e=>{if(!l(this,_)||!e.isPrimary)return;if(l(this,_).ev=e,l(this,_).drag){l(this,_).target.dispatchEvent(new DragEvent("drag",e));return}let n=e.clientX-l(this,_).start.x,r=e.clientY-l(this,_).start.y;(n*n+r*r>5*5||e.timeStamp-l(this,_).ev.timeStamp>300)&&(this.setPointerCapture(e.pointerId),l(this,_).target.dispatchEvent(new DragEvent("dragstart",e)),l(this,_).drag=!0)});p(this,Te,e=>{!l(this,_)||!e.isPrimary||(l(this,_).drag&&l(this,_).target.dispatchEvent(new DragEvent("dragend",e)),clearInterval(l(this,_).timer),y(this,_,void 0))});this.addEventListener("contextmenu",l(this,xt),!0),this.addEventListener("pointercancel",l(this,Te),!0),this.addEventListener("pointerdown",l(this,wt),!0),this.addEventListener("pointermove",l(this,Ce),!0),this.addEventListener("pointerup",l(this,Te),!0)}render(){return b`<slot></slot>`}};_=new WeakMap,xt=new WeakMap,wt=new WeakMap,Ce=new WeakMap,Te=new WeakMap,Fe.styles=x`
+    ${C}
+
+    :host {
+      /* Stretch over children. */
+      display: block;
+      min-height: 100%;
+
+      /* Update for every pointermove *touch* Event like *mouse* Events. */
+      touch-action: none;
+    }
+  `,Fe=m([k("drag-area")],Fe);var $r=(await Promise.resolve().then(()=>Q(ln()))).default,Et,dn,bt,cn,ae=class extends v{constructor(){super(...arguments);p(this,Et);p(this,bt);this.context={}}render(){let e=tt(this.tree?.down??[],n=>n.id,n=>b`
+        <li>
+          <div class="group-header"></div>
+          <line-list .context=${this.context} .list=${n}></line-list>
+        </li>
+      `);return b`
+      <drag-area>
+        <ol
+          @drag-line-end=${h(this,Et,dn)}
+          @drag-line-start=${h(this,bt,cn)}
+        >
+          ${e}
+        </ol>
+      </drag-area>
+    `}};Et=new WeakSet,dn=function(){this.classList.remove("drag")},bt=new WeakSet,cn=function(){this.classList.add("drag")},ae.styles=x`
+    ${C}
+
+    drag-area {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+
+      /* Position absolute drag elements relative this scroll container. */
+      position: relative;
+
+      display: block;
+    }
+
+    ol {
+      display: inline-flex;
+
+      /* Clear default list styling. */
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      /* fill parent*/
+      min-width: 100%;
+
+      column-gap: var(--half-space);
+
+      min-height: 100%; /* Fill vertical space for dragging in column. */
+
+      background-color: #f2f5f5;
+      background-image: url('${He($r)}');
+      background-size: 8px 8px;
+    }
+
+    li {
+      height: 100%;
+      display: block;
+      padding-bottom: 54px; /* space for app menu*/
+    }
+
+    li:first-child {
+      margin-left: 8px;
+    }
+    li:last-child {
+      margin-right: 8px;
+    }
+
+    .group-header {
+      cursor: grab;
+      height: 12px;
+      padding-top: 4px;
+      padding-bottom: 1px;
+      background-image: linear-gradient(
+        to bottom,
+        #888,
+        #888 1px,
+        #f2f5f5 1px,
+        #f2f5f5
+      );
+      background-size: 100% 2px;
+      background-clip: content-box;
+    }
+
+    :host(.drag) {
+      cursor: grabbing; /* When dragging, set the cursor to a closed hand. */
+    }
+  `,m([F({attribute:!1})],ae.prototype,"context",2),m([F({attribute:!1})],ae.prototype,"tree",2),ae=m([k("group-list")],ae);var Dt,pn,$t,hn,kt,un,ue=class extends v{constructor(){super(...arguments);p(this,Dt);p(this,$t);p(this,kt)}render(){return b`
+      <slot name="lhs"></slot>
+      <div class="handle"><hr @pointerdown=${h(this,kt,un)} /></div>
+      <slot name="rhs"></slot>
+    `}};Dt=new WeakSet,pn=function(e){e.currentTarget.onpointercancel=null,e.currentTarget.onpointerup=null,e.currentTarget.onpointermove=null,e.currentTarget.releasePointerCapture(e.pointerId)},$t=new WeakSet,hn=function(e){e.clientX+16>this.clientWidth?this._lhs.style.width="":this._lhs.style.width=`${e.clientX}px`},kt=new WeakSet,un=function(e){e.currentTarget.setPointerCapture(e.pointerId),e.currentTarget.onpointermove=n=>h(this,$t,hn).call(this,n),e.currentTarget.onpointercancel=e.currentTarget.onpointerup=n=>h(this,Dt,pn).call(this,n)},ue.styles=x`
+    ${C}
+
+    :host {
+      /* Fill area. */
+      display: flex;
+      width: 100%;
+      height: 100%;
+
+      overflow: hidden; /* Limit width. */
+    }
+
+    .handle {
+      position: relative; /* Position child relatively. */
+
+      /* Render handle indicator; child is invisible. */
+      background-color: black;
+      height: 100%;
+      width: 1px;
+    }
+
+    .handle:has(hr:hover) {
+      background-color: red;
+    }
+
+    hr {
+      opacity: 0; /* Hide. Parent is visible. */
+
+      position: absolute; /* Remove from layout. */
+
+      /* Make handle wide and fit the parent. If it's too wide, it blocks drag
+         scrolling. */
+      width: 9px;
+      height: 100%;
+      margin: 0;
+
+      /* Center relative parent. */
+      left: -4px;
+
+      flex-grow: 0;
+
+      cursor: ew-resize;
+    }
+
+    [name='lhs'] {
+      display: block;
+      flex-shrink: 1;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      resize: horizontal;
+    }
+
+    [name='rhs'] {
+      display: block;
+      height: 100%;
+      flex-basis: 0;
+      flex-shrink: 1;
+      flex-grow: 9999;
+      overflow: auto;
+    }
+  `,m([W('slot[name="lhs"]')],ue.prototype,"_lhs",2),ue=m([k("split-block")],ue);function mn(i,t){let e,n=0,r;return function(...s){return r=s,e??=setTimeout(()=>{n=Date.now(),e=void 0;let o=r;r=void 0,i.apply(this,o)},Math.max(0,t-(Date.now()-n))),()=>{e!=null&&clearTimeout(e),e=void 0,r=void 0}}}var _e,Le,Se,Ft,fn,Re,ti,le=class extends v{constructor(){super(...arguments);p(this,Ft);p(this,Re);this.text="";p(this,_e,0);p(this,Le,0);p(this,Se,0)}willUpdate(e){super.willUpdate(e),this._textArea&&(y(this,_e,this._textArea.selectionStart),y(this,Le,this._textArea.selectionEnd),y(this,Se,this._textArea.scrollTop))}updated(e){super.updated(e),this._textArea.selectionStart=l(this,_e),this._textArea.selectionEnd=l(this,Le),this._textArea.scrollTop=l(this,Se)}render(){return b`
+      <textarea
+        @beforeinput=${h(this,Ft,fn)}
+        @input=${mn(h(this,Re,ti),100)}
+        spellcheck
+        .value=${this.text}
+      ></textarea>
+    `}};_e=new WeakMap,Le=new WeakMap,Se=new WeakMap,Ft=new WeakSet,fn=function(e){e.inputType==="insertLineBreak"&&(e.preventDefault(),document.execCommand("insertText",!1,`
+`),h(this,Re,ti).call(this))},Re=new WeakSet,ti=function(){this.text=this._textArea?.value??"",this.dispatchEvent(T("edit-text",this.text))},le.styles=x`
+    ${C}
+
+    ::selection {
+      background-color: var(--shade-bright-yellow);
+    }
+    :host {
+      min-height: 100%;
+    }
+    textarea {
+      /* Prevent scroll. */
+      display: block;
+
+      /* Fill block. */
+      min-height: 100%;
+      width: 100%;
+
+      /* Disable resizable default. */
+      resize: none;
+
+      /* Only break on newline. */
+      white-space: pre;
+    }
+  `,m([F()],le.prototype,"text",2),m([W("textarea")],le.prototype,"_textArea",2),le=m([k("text-editor")],le);var An=x`
+  :host {
+    --note-card-width: 128px;
+
+    --shade-black: rgb(0.125 0.125 0.125);
+    --shade-yellow: rgb(255, 255, 230);
+    --shade-bright-yellow: rgba(237, 220, 26, 0.3);
+
+    --half-space: 2px;
+  }
+`;var Cr=(await Promise.resolve().then(()=>Q(gn()))).default,Tr=(await Promise.resolve().then(()=>Q(yn()))).default,I,L,U,R,Pe,Ct,vn,Tt,xn,Z,fe,V,de,_t,wn,Lt,En,St,bn,Rt,Dn,Pt,$n,Be,Bt,kn,Mt,Fn,Ot,Cn,Ht,Tn,It,_n,me=class extends v{constructor(){super();p(this,Ct);p(this,Tt);p(this,Z);p(this,V);p(this,_t);p(this,Lt);p(this,St);p(this,Rt);p(this,Pt);p(this,Bt);p(this,Mt);p(this,Ot);p(this,Ht);p(this,It);p(this,I,{});p(this,L,void 0);p(this,U,void 0);p(this,R,!1);p(this,Pe,void 0);p(this,Be,async()=>{if(!l(this,R)||!l(this,L))return;let e=await Ci(l(this,L));if(!Ti(l(this,L),e))return;y(this,L,e);let n=await l(this,L).file.text(),r=D.toString(this.tree);n!==r&&(this.tree=D(n,2))});console.log("Linear Text v0.5.2 by \u2500\u2500oidoid>\xB0\u2500");let e=Pi();e?(y(this,R,e.saved),this.tree=D(e.text,2),y(this,U,e.filename),h(this,V,de).call(this)):this.tree=D("hello",2)}render(){return b`
+      <split-block
+        ><group-list
+          slot="lhs"
+          .context=${l(this,I)}
+          .tree=${this.tree}
+          @blur-line=${h(this,Ct,vn)}
+          @break-line=${h(this,Tt,xn)}
+          @drag-line-end=${h(this,Lt,En)}
+          @edit-line=${h(this,St,bn)}
+          @expand-line=${h(this,Rt,Dn)}
+          @focus-line=${h(this,Pt,$n)}
+          @remove-line=${h(this,Bt,kn)}
+        ></group-list
+        ><text-editor
+          slot="rhs"
+          text="${D.toString(this.tree)}"
+          @edit-text=${h(this,_t,wn)}
+        ></text-editor></split-block
+      ><app-menu
+        @new-file=${h(this,Ht,Tn)}
+        @open-file=${h(this,It,_n)}
+        @save-file=${h(this,Mt,Fn)}
+        @save-file-as=${h(this,Ot,Cn)}
+      ></app-menu>
+    `}connectedCallback(){super.connectedCallback(),addEventListener("focus",l(this,Be)),y(this,Pe,setInterval(()=>Ri(l(this,U),l(this,R),this.tree),3e4))}disconnectedCallback(){clearInterval(l(this,Pe)),removeEventListener("focus",l(this,Be)),super.disconnectedCallback()}};I=new WeakMap,L=new WeakMap,U=new WeakMap,R=new WeakMap,Pe=new WeakMap,Ct=new WeakSet,vn=function(e){l(this,I).focus?.line===e.detail&&delete l(this,I).focus},Tt=new WeakSet,xn=function(e){let n=D.breakLine(e.detail.line,e.detail.at,"LF");l(this,I).focus={line:n.new,startOfLine:!0},h(this,Z,fe).call(this,n.root)},Z=new WeakSet,fe=function(e){this.tree=e,y(this,R,!1),h(this,V,de).call(this)},V=new WeakSet,de=function(){_r(l(this,U),l(this,R))},_t=new WeakSet,wn=function(e){h(this,Z,fe).call(this,D(e.detail,2))},Lt=new WeakSet,En=function(e){h(this,Z,fe).call(this,D.moveLine(e.detail.from,e.detail.to,e.detail.at))},St=new WeakSet,bn=function(e){h(this,Z,fe).call(this,D.setLineText(e.detail.line,e.detail.text))},Rt=new WeakSet,Dn=function(e){this.tree=D.setLineExpand(e.detail.line,e.detail.expand)},Pt=new WeakSet,$n=function(e){l(this,I).focus={line:e.detail,startOfLine:l(this,I).focus?.line===e.detail?l(this,I).focus.startOfLine:!1}},Be=new WeakMap,Bt=new WeakSet,kn=function(e){h(this,Z,fe).call(this,D.removeLine(e.detail.line))},Mt=new WeakSet,Fn=async function(){let e=D.toString(this.tree);y(this,L,await Yt(l(this,L),e)),y(this,U,l(this,L)?.file.name),y(this,R,!!l(this,L)),h(this,V,de).call(this)},Ot=new WeakSet,Cn=async function(){let e=D.toString(this.tree);y(this,L,await Yt(void 0,e)),y(this,U,l(this,L)?.file.name),y(this,R,!!l(this,L)),h(this,V,de).call(this)},Ht=new WeakSet,Tn=function(){y(this,L,void 0),y(this,U,void 0),this.tree=D("",2),y(this,R,!0),h(this,V,de).call(this)},It=new WeakSet,_n=async function(){if(y(this,L,await Fi()),y(this,U,l(this,L)?.file.name),!l(this,L))return;let e=await l(this,L).file.text();this.tree=D(e,2),y(this,R,!0),h(this,V,de).call(this)},me.styles=x`
+    ${C}
+    ${An}
+
+    :host {
+      display: flex;
+      flex-direction: column;
+      display: block;
+
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      user-select: none;
+
+      font-family: sans-serif;
+      font-size: 14px;
+      line-height: 1.1;
+
+      background: #006400;
+      background-color: black;
+    }
+
+    app-menu {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      translate: -50%;
+      /* need spacer so you can click notes at the bottom underneath */
+    }
+
+    split-block {
+      flex-grow: 1;
+      /* to-do: fix with divider which makes this look weird */
+      border-width: 1px;
+      border-style: solid;
+      border-radius: 8px;
+      border-color: black;
+    }
+
+    group-list {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  `,m([F({attribute:!1})],me.prototype,"tree",2),me=m([k("linear-text")],me);function _r(i,t){document.title=t?i==null?"Linear Text":`${i} \u2013 Linear Text`:i==null?"\u2022 (Unsaved) \u2013 Linear Text":`\u2022 ${i} (Unsaved) \u2013 Linear Text`;let e=document.querySelector('link[rel="icon"]');e&&(e.href=t?Cr:Tr)}export{me as LinearText};
+/*! Bundled license information:
+
+@lit/reactive-element/css-tag.js:
+  (**
+   * @license
+   * Copyright 2019 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/reactive-element.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/lit-html.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-element/lit-element.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/is-server.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/custom-element.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/property.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/state.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/event-options.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/base.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/query.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/query-all.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/query-async.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/query-assigned-elements.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/query-assigned-nodes.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directive.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directive-helpers.js:
+  (**
+   * @license
+   * Copyright 2020 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directives/repeat.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directives/keyed.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directives/class-map.js:
+  (**
+   * @license
+   * Copyright 2018 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directives/if-defined.js:
+  (**
+   * @license
+   * Copyright 2018 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+*/
+//# sourceMappingURL=linear-text.js.map
+</script>
+    <linear-text></linear-text>
+  
+
+</body></html>
