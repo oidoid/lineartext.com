@@ -1,65 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- prettier-ignore -->
-    <meta charset="utf-8">
-    <!-- prettier-ignore -->
-    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>Linear Text</title>
     <style>
-      body {
-        max-width: 768px;
-        margin: 0 auto;
-        padding: 16px;
-        background: #f2f5f5;
+      :root {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        background-color: #f2f5f5;
+        background-image: url('grid.svg');
+        background-size: 8px;
       }
-      a,
-      a > img {
+
+      a {
         font-weight: bold;
-        color: #3b8ca1;
       }
-      a:visited,
-      a:visited > img {
-        color: #79a684;
+      footer {
+        font-size: 8px;
       }
 
-      .linear-text {
-        display: block;
-      }
-
-      .container {
+      .paper {
+        margin-block: 16px;
+        margin-inline: auto;
+        max-width: 512px;
         background: #fff;
         padding: 16px;
-        border-radius: 16px;
-        margin-top: 16px;
-        margin-bottom: 16px;
+        border-radius: 8px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #0002;
+        border-radius: 2px;
+      }
+      h1,
+      h2 {
+        font-weight: normal;
+      }
+      h1 {
+        font-size: 20px;
+        margin-block-start: 0;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      h2 {
+        font-size: 14px;
+        line-height: 1;
+        border-bottom: 1px solid #ccc;
+        padding-block-end: 2px;
+        margin-block-start: 2rem;
+        margin-block-end: 4px;
       }
     </style>
-    <!-- prettier-ignore -->
-    <link rel="icon" href="favicon.svg">
+    <link rel="icon" href="favicon.png" />
   </head>
   <body>
-    <div class="container">
+    <div class="paper">
       <header>
-        <!-- prettier-ignore -->
-        <img
-        class="linear-text"
-        src="logo.svg"
-        width="512"
-        height="128"
-        alt="Linear Text"
-      >
+        <h1>
+          <img
+            alt="logo"
+            src="linear-text-logo.svg"
+            valign="middle"
+            width="32"
+            height="32"
+          />
+          Linear Text
+        </h1>
       </header>
       <main>
-        <p>
-          A graphical line-oriented text editor by
-          <a href="https://oidoid.com">oidoid</a>.
-        </p>
-        <p>
-          Source code available on
-          <a href="https://git.io/linear-text">GitHub</a>.
-        </p>
+        <section>
+          <center>
+            <a href="linear-text-screenshot.png">
+              <img
+                alt="screenshot"
+                src="linear-text-screenshot.png"
+                width="480"
+                height="374"
+            /></a>
+          </center>
+          <p>
+            Linear Text is a graphical line-oriented plaintext editor by
+            <a href="https://oidoid.com">oidoid</a>. It's "pretty mode" for
+            text.
+          </p>
+        </section>
+        <section>
+          <h2>Try</h2>
+          <p><a href="/edit?tutorial">Try editing online</a>.</p>
+        </section>
+        <section>
+          <h2>Download</h2>
+          <p>
+            Linear Text is still in early development, may lose data, and is not
+            ready for evaluation.
+          </p>
+          <p>
+            <a download="linear-text.html" href="/edit">Download</a> the latest
+            version. Linear Text is a single file of self-contained, portable
+            HTML. Double-click to open.
+          </p>
+          <p>
+            Read the
+            <a
+              href="https://github.com/oidoid/linear-text/blob/main/docs/changelog.text"
+              >release notes</a
+            >.
+          </p>
+        </section>
+        <section>
+          <h2>Features</h2>
+          <p>
+            Linear Text represents each line of text as an editable card in a
+            two-dimensional space. Same plaintext, different view.
+          </p>
+          <ul>
+            <li>
+              Plaintext under a new lens. Read and write plaintext under a
+              friendly, fun perspective without compromising data integrity. The
+              format is plaintext, the presentation is graphical.
+            </li>
+            <li>Edit cards to edit lines.</li>
+            <li>Move cards to move lines with drag-and-drop.</li>
+            <li>Group cards to group lines.</li>
+            <li>Indent cards to indent lines. Nested lines form a list.</li>
+            <li>Show and hide cards by toggling lists.</li>
+            <li>Switch to the integrated text editor for text mode.</li>
+            <li>
+              Seamlessly work with other text editors. External edits are
+              live-reloaded.
+            </li>
+            <li>
+              Work offline. Linear Text is a single file of self-contained HTML
+              that executes locally on your computer. There are no uploads or
+              transmissions.
+            </li>
+            <li>
+              Designed to be deleted. Linear Text, like all editors, will become
+              obsolete but your plaintext never will. The way electronic notes
+              should be.
+            </li>
+          </ul>
+          <p>
+            From a to-do list to your life's work, see plaintext in a new light.
+          </p>
+        </section>
+        <section>
+          <h2>Plaintext</h2>
+          <p>
+            Linear Text is for editing plaintext files. Plaintext is pure,
+            immortal, and easy to work with.
+          </p>
+          <ul>
+            <li>
+              Content is the focus. Plaintext is 100% content and unmarred by
+              data format requirements imposed by software. There's nothing
+              simpler, lighter weight, or less distracting than the fundamental
+              data itself.
+            </li>
+            <li>
+              Stay in control. Plaintext can be structured across files and
+              folders in any style.
+            </li>
+            <li>
+              Keep notes forever. Plaintext is universally readable. Text never
+              needs to be migrated from an old tool to a new one.
+            </li>
+            <li>
+              Find text easily. Plaintext is searchable. Text can be queried
+              with any tool, especially by line.
+            </li>
+            <li>
+              Compare texts. Plaintext can be diffed to review changes or
+              identify differences.
+            </li>
+            <li>
+              Version sensibly. Plaintext is interoperable with every popular
+              version control system like Git.
+            </li>
+          </ul>
+          <p>Plaintext is the natural medium of computing.</p>
+        </section>
+        <section>
+          <h2>Use-cases</h2>
+          <p>Linear Text works well for:</p>
+          <ul>
+            <li>
+              Outlining. Any kind of data that is hierarchically indented.
+            </li>
+            <li>
+              Lists and collections. For example, game backlogs, bookmarks, and
+              to-do lists.
+            </li>
+            <li>
+              Simple kanbans, individual project management, and planning.
+            </li>
+            <li>Calendars and journaling.</li>
+            <li>
+              Note hoarding. Storing heaps of notes where important notes are
+              bubbled up.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Principles</h2>
+          <p>Linear Text was designed with these principles:</p>
+          <ul>
+            <li>Make it fun.</li>
+            <li>
+              The format is plaintext. Don't write anything you wouldn't write
+              in notepad.exe. Linear markdown is ok.
+            </li>
+            <li>The line is the atom.</li>
+            <li>Data is sacred.</li>
+            <li>
+              Information density is good. Lines are the focus. Distractions are
+              bad.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Development</h2>
+          <p>
+            All code is <a href="https://git.io/linear-text">open-source</a>.
+          </p>
+          <p>
+            Future work is focused on bug fixes and UI improvements. Exciting
+            new features for link and image preview lenses is planned.
+          </p>
+        </section>
       </main>
+      <footer>© oidoid.</footer>
     </div>
   </body>
 </html>
