@@ -1,0 +1,776 @@
+<!doctype html><html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Linear Text</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1LwAA6l8AADqXAAAXcHwVugEAAAAMUExURQAAAP//5v//15qamsROZpoAAAAEdFJOUwD///+zLUCIAAAAK0lEQVQYlWNgRgMMzIwoYDAKYLiUmYmJiZkBVQDIRxEA8VHMYAALIPkcBADNuwF46EuTbQAAAABJRU5ErkJggg==">
+    <link rel="manifest" href="data:application/json,%7B%22author%22%3A%22oidoid%22%2C%22description%22%3A%22Graphical%20line-oriented%20plaintext%20editor.%22%2C%22display%22%3A%22standalone%22%2C%22homepage_url%22%3A%22https%3A%2F%2Flineartext.com%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIGNIUk0AAHomAACAhAAA%2BgAAAIDoAAB1LwAA6l8AADqXAAAXcHwVugEAAAAMUExURQAAAP%2F%2F5v%2F%2F15qamsROZpoAAAAEdFJOUwD%2F%2F%2F%2BzLUCIAAAAK0lEQVQYlWNgRgMMzIwoYDAKYLiUmYmJiZkBVQDIRxEA8VHMYAALIPkcBADNuwF46EuTbQAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%2216x16%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAABGdBTUEAALGPC%2FxhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdS8AAOpfAAA6lwAAF3B8FboBAAAAD1BMVEUAAACampr%2F%2F%2Bb%2F%2F9f%2F%2F%2F%2B%2BPm7yAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfoAQQUJR0UGzo6AAAAMUlEQVQoz2MQRAMMmAJKKGBUgAQBjCDEFDA2NhZkICAA5OMXAPHxCoD5WASQ4hmrAACrRDhR5e3IcQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyNC0wMS0wM1QxOTowNDo0MyswMDowMAjEntsAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjQtMDEtMDNUMTk6MDQ6NDMrMDA6MDB5mSZnAAAAAElFTkSuQmCC%22%2C%22sizes%22%3A%2232x32%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC%2FxhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdS8AAOpfAAA6lwAAF3B8FboBAAAAD1BMVEUAAACampr%2F%2F%2Bb%2F%2F9f%2F%2F%2F%2B%2BPm7yAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfoAQMTBiBqQi92AAAAPklEQVQ4y2MQxAEYyJAQUsICFEclRiUGqQTOtEuGhLAxEAgKMFBHwlCQgYE6EiALqCIhCLaAPAk0IMBArgQAL%2BF%2BLl3%2BWosAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjQtMDEtMDNUMTk6MDQ6NDMrMDA6MDAIxJ7bAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI0LTAxLTAzVDE5OjA0OjQzKzAwOjAweZkmZwAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%2248x48%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAABGdBTUEAALGPC%2FxhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdS8AAOpfAAA6lwAAF3B8FboBAAAAD1BMVEUAAACampr%2F%2F%2Bb%2F%2F9f%2F%2F%2F%2B%2BPm7yAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfoAQMTBwfWU6tcAAAAPklEQVRIx2MQJAAY6KJACQ8YVTCqYFTBqILBp4BgIUYXBcZgAJRmGFgFYOkBVQCVHkAFcGk6KcBanTLQUQEAg0ThQcYZngIAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjQtMDEtMDNUMTk6MDQ6NDMrMDA6MDAIxJ7bAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI0LTAxLTAzVDE5OjA0OjQzKzAwOjAweZkmZwAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%2264x64%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAMAAAADABAMAAACg8nE0AAAABGdBTUEAALGPC%2FxhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdS8AAOpfAAA6lwAAF3B8FboBAAAAD1BMVEUAAACampr%2F%2F%2Bb%2F%2F9f%2F%2F%2F%2B%2BPm7yAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfoAQMTBjKZ%2B14%2BAAAAgElEQVR42u3NwQ2AIBAAwWuBFmjB%2FnvjIR%2BjIsZwfmYL2ImyuAAAAIBpoC4IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOBfoEwEAAAAOcB2qq%2F3AAAAIB04rAEAACAduFgDAABAInC7BgAAgJfAl2IcAAAAPAMNMLbrqvA%2BCg0AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjQtMDEtMDNUMTk6MDQ6NDMrMDA6MDAIxJ7bAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI0LTAxLTAzVDE5OjA0OjQzKzAwOjAweZkmZwAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIABAMAAAAGVsnJAAAABGdBTUEAALGPC%2FxhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdS8AAOpfAAA6lwAAF3B8FboBAAAAD1BMVEUAAACampr%2F%2F%2Bb%2F%2F9f%2F%2F%2F%2B%2BPm7yAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfoAQMTBjkOKYe2AAACo0lEQVR42u3QwQ2DMAAEQVqgBVpI%2F73ljx%2BRhZI1YbaCu9n2h7fVA%2BoA1APqANQD6gDUA%2BoA1APqANQD6gDUA%2BoA1APqANQD6gDUA%2BoA1APqANQD6gDUA%2BoA1APqANQD6gDUA%2BoGgOPPAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAPBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAPBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwJoA%2B5cDAAAAAAAAAAAAAAAAAAAAAAAAUB8GAAAAAAAAAAAAAAAAAAAARoDXZMPhcwAAAAAAAAAAAAAAAAAAAAAAAPVhAAAAAAAAAAAAAAAAAAAAAMA0wMfDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDbAUwfBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsD3D5MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg%2BS4fBgAAAAAAAAAAAAAAAAAAAAAAqA8BAAAAAAAAAAAAAAAAAAAAvwd4AyXrU0n3lvv5AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI0LTAxLTAzVDE5OjA0OjQzKzAwOjAwCMSe2wAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNC0wMS0wM1QxOTowNDo0MyswMDowMHmZJmcAAAAASUVORK5CYII%3D%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB2aWV3Qm94PSIwIDAgMTYgMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI%2BCiAgPHBhdGgKICAgICBzdHlsZT0iZmlsbDojZmZmZmU2O3N0cm9rZTojOWE5YTlhIgogICAgIGQ9Ik0gMTAsMTUuNSBIIDAuNSB2IC0xNSBoIDE1IFYgMTAiCiAgLz4KICA8cGF0aAogICAgc3R5bGU9ImZpbGw6I2ZmZmZkNztzdHJva2U6IzlhOWE5YSIKICAgIGQ9Im0gMTAuNSwxMC41IGggNSBjIDAsMCAtNSw1IC01LDUgWiIKICAvPgo8L3N2Zz4K%22%2C%22sizes%22%3A%22any%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%2C%22manifest_version%22%3A3%2C%22name%22%3A%22Linear%20Text%22%2C%22orientation%22%3A%22any%22%2C%22short_name%22%3A%22T%CC%B2e%CC%B2x%CC%B2t%CC%B2%22%2C%22start_url%22%3A%22https%3A%2F%2Flineartext.com%2Fedit%2F%22%2C%22theme_color%22%3A%22%23f2f5f5%22%2C%22version%22%3A%220.5.10%22%7D">
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">var kn=Object.defineProperty;var Tn=Object.getOwnPropertyDescriptor;var m=(i,t,e,n)=>{for(var r=n>1?void 0:n?Tn(t,e):t,o=i.length-1,s;o>=0;o--)(s=i[o])&&(r=(n?s(t,e,r):s(r))||r);return n&&r&&kn(t,e,r),r};var It=(i,t,e)=>{if(!t.has(i))throw TypeError("Cannot "+e)};var l=(i,t,e)=>(It(i,t,"read from private field"),e?e.call(i):t.get(i)),p=(i,t,e)=>{if(t.has(i))throw TypeError("Cannot add the same private member more than once");t instanceof WeakSet?t.add(i):t.set(i,e)},v=(i,t,e,n)=>(It(i,t,"write to private field"),n?n.call(i,e):t.set(i,e),e);var u=(i,t,e)=>(It(i,t,"access private method"),e);var De=globalThis,He=De.ShadowRoot&&(De.ShadyCSS===void 0||De.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,Ut=Symbol(),Jt=new WeakMap,me=class{constructor(t,e,n){if(this._$cssResult$=!0,n!==Ut)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o,e=this.t;if(He&&t===void 0){let n=e!==void 0&&e.length===1;n&&(t=Jt.get(e)),t===void 0&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),n&&Jt.set(e,t))}return t}toString(){return this.cssText}},Oe=i=>new me(typeof i=="string"?i:i+"",void 0,Ut),w=(i,...t)=>{let e=i.length===1?i[0]:t.reduce((n,r,o)=>n+(s=>{if(s._$cssResult$===!0)return s.cssText;if(typeof s=="number")return s;throw Error("Value passed to 'css' function must be a 'css' function result: "+s+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(r)+i[o+1],i[0]);return new me(e,i,Ut)},Nt=(i,t)=>{if(He)i.adoptedStyleSheets=t.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let e of t){let n=document.createElement("style"),r=De.litNonce;r!==void 0&&n.setAttribute("nonce",r),n.textContent=e.cssText,i.appendChild(n)}},Fe=He?i=>i:i=>i instanceof CSSStyleSheet?(t=>{let e="";for(let n of t.cssRules)e+=n.cssText;return Oe(e)})(i):i;var{is:_n,defineProperty:Ln,getOwnPropertyDescriptor:Sn,getOwnPropertyNames:An,getOwnPropertySymbols:Rn,getPrototypeOf:Cn}=Object,Ie=globalThis,Qt=Ie.trustedTypes,Pn=Qt?Qt.emptyScript:"",Mn=Ie.reactiveElementPolyfillSupport,fe=(i,t)=>i,ge={toAttribute(i,t){switch(t){case Boolean:i=i?Pn:null;break;case Object:case Array:i=i==null?i:JSON.stringify(i)}return i},fromAttribute(i,t){let e=i;switch(t){case Boolean:e=i!==null;break;case Number:e=i===null?null:Number(i);break;case Object:case Array:try{e=JSON.parse(i)}catch{e=null}}return e}},Ue=(i,t)=>!_n(i,t),ei={attribute:!0,type:String,converter:ge,reflect:!1,hasChanged:Ue};Symbol.metadata??=Symbol("metadata"),Ie.litPropertyMetadata??=new WeakMap;var N=class extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=ei){if(e.state&&(e.attribute=!1),this._$Ei(),this.elementProperties.set(t,e),!e.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(t,n,e);r!==void 0&&Ln(this.prototype,t,r)}}static getPropertyDescriptor(t,e,n){let{get:r,set:o}=Sn(this.prototype,t)??{get(){return this[e]},set(s){this[e]=s}};return{get(){return r?.call(this)},set(s){let d=r?.call(this);o.call(this,s),this.requestUpdate(t,d,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??ei}static _$Ei(){if(this.hasOwnProperty(fe("elementProperties")))return;let t=Cn(this);t.finalize(),t.l!==void 0&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(fe("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(fe("properties"))){let e=this.properties,n=[...An(e),...Rn(e)];for(let r of n)this.createProperty(r,e[r])}let t=this[Symbol.metadata];if(t!==null){let e=litPropertyMetadata.get(t);if(e!==void 0)for(let[n,r]of e)this.elementProperties.set(n,r)}this._$Eh=new Map;for(let[e,n]of this.elementProperties){let r=this._$Eu(e,n);r!==void 0&&this._$Eh.set(r,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){let e=[];if(Array.isArray(t)){let n=new Set(t.flat(1/0).reverse());for(let r of n)e.unshift(Fe(r))}else t!==void 0&&e.push(Fe(t));return e}static _$Eu(t,e){let n=e.attribute;return n===!1?void 0:typeof n=="string"?n:typeof t=="string"?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(t=>this.enableUpdating=t),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(t=>t(this))}addController(t){(this._$EO??=new Set).add(t),this.renderRoot!==void 0&&this.isConnected&&t.hostConnected?.()}removeController(t){this._$EO?.delete(t)}_$E_(){let t=new Map,e=this.constructor.elementProperties;for(let n of e.keys())this.hasOwnProperty(n)&&(t.set(n,this[n]),delete this[n]);t.size>0&&(this._$Ep=t)}createRenderRoot(){let t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return Nt(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(t=>t.hostConnected?.())}enableUpdating(t){}disconnectedCallback(){this._$EO?.forEach(t=>t.hostDisconnected?.())}attributeChangedCallback(t,e,n){this._$AK(t,n)}_$EC(t,e){let n=this.constructor.elementProperties.get(t),r=this.constructor._$Eu(t,n);if(r!==void 0&&n.reflect===!0){let o=(n.converter?.toAttribute!==void 0?n.converter:ge).toAttribute(e,n.type);this._$Em=t,o==null?this.removeAttribute(r):this.setAttribute(r,o),this._$Em=null}}_$AK(t,e){let n=this.constructor,r=n._$Eh.get(t);if(r!==void 0&&this._$Em!==r){let o=n.getPropertyOptions(r),s=typeof o.converter=="function"?{fromAttribute:o.converter}:o.converter?.fromAttribute!==void 0?o.converter:ge;this._$Em=r,this[r]=s.fromAttribute(e,o.type),this._$Em=null}}requestUpdate(t,e,n){if(t!==void 0){if(n??=this.constructor.getPropertyOptions(t),!(n.hasChanged??Ue)(this[t],e))return;this.P(t,e,n)}this.isUpdatePending===!1&&(this._$ES=this._$ET())}P(t,e,n){this._$AL.has(t)||this._$AL.set(t,e),n.reflect===!0&&this._$Em!==t&&(this._$Ej??=new Set).add(t)}async _$ET(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let t=this.scheduleUpdate();return t!=null&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[r,o]of this._$Ep)this[r]=o;this._$Ep=void 0}let n=this.constructor.elementProperties;if(n.size>0)for(let[r,o]of n)o.wrapped!==!0||this._$AL.has(r)||this[r]===void 0||this.P(r,this[r],o)}let t=!1,e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),this._$EO?.forEach(n=>n.hostUpdate?.()),this.update(e)):this._$EU()}catch(n){throw t=!1,this._$EU(),n}t&&this._$AE(e)}willUpdate(t){}_$AE(t){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$EU(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return!0}update(t){this._$Ej&&=this._$Ej.forEach(e=>this._$EC(e,this[e])),this._$EU()}updated(t){}firstUpdated(t){}};N.elementStyles=[],N.shadowRootOptions={mode:"open"},N[fe("elementProperties")]=new Map,N[fe("finalized")]=new Map,Mn?.({ReactiveElement:N}),(Ie.reactiveElementVersions??=[]).push("2.0.4");var Bt=globalThis,Ne=Bt.trustedTypes,ti=Ne?Ne.createPolicy("lit-html",{createHTML:i=>i}):void 0,zt="$lit$",j=`lit$${(Math.random()+"").slice(9)}$`,qt="?"+j,Dn=`<${qt}>`,ee=document,ve=()=>ee.createComment(""),xe=i=>i===null||typeof i!="object"&&typeof i!="function",ai=Array.isArray,li=i=>ai(i)||typeof i?.[Symbol.iterator]=="function",jt=`[ 	
+\f\r]`,ye=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,ii=/-->/g,ni=/>/g,J=RegExp(`>|${jt}(?:([^\\s"'>=/]+)(${jt}*=${jt}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`,"g"),ri=/'/g,oi=/"/g,di=/^(?:script|style|textarea|title)$/i,ci=i=>(t,...e)=>({_$litType$:i,strings:t,values:e}),E=ci(1),xr=ci(2),D=Symbol.for("lit-noChange"),k=Symbol.for("lit-nothing"),si=new WeakMap,Q=ee.createTreeWalker(ee,129);function pi(i,t){if(!Array.isArray(i)||!i.hasOwnProperty("raw"))throw Error("invalid template strings array");return ti!==void 0?ti.createHTML(t):t}var hi=(i,t)=>{let e=i.length-1,n=[],r,o=t===2?"<svg>":"",s=ye;for(let d=0;d<e;d++){let a=i[d],h,y,c=-1,g=0;for(;g<a.length&&(s.lastIndex=g,y=s.exec(a),y!==null);)g=s.lastIndex,s===ye?y[1]==="!--"?s=ii:y[1]!==void 0?s=ni:y[2]!==void 0?(di.test(y[2])&&(r=RegExp("</"+y[2],"g")),s=J):y[3]!==void 0&&(s=J):s===J?y[0]===">"?(s=r??ye,c=-1):y[1]===void 0?c=-2:(c=s.lastIndex-y[2].length,h=y[1],s=y[3]===void 0?J:y[3]==='"'?oi:ri):s===oi||s===ri?s=J:s===ii||s===ni?s=ye:(s=J,r=void 0);let f=s===J&&i[d+1].startsWith("/>")?" ":"";o+=s===ye?a+Dn:c>=0?(n.push(h),a.slice(0,c)+zt+a.slice(c)+j+f):a+j+(c===-2?d:f)}return[pi(i,o+(i[e]||"<?>")+(t===2?"</svg>":"")),n]},we=class i{constructor({strings:t,_$litType$:e},n){let r;this.parts=[];let o=0,s=0,d=t.length-1,a=this.parts,[h,y]=hi(t,e);if(this.el=i.createElement(h,n),Q.currentNode=this.el.content,e===2){let c=this.el.content.firstChild;c.replaceWith(...c.childNodes)}for(;(r=Q.nextNode())!==null&&a.length<d;){if(r.nodeType===1){if(r.hasAttributes())for(let c of r.getAttributeNames())if(c.endsWith(zt)){let g=y[s++],f=r.getAttribute(c).split(j),b=/([.?@])?(.*)/.exec(g);a.push({type:1,index:o,name:b[2],strings:f,ctor:b[1]==="."?Be:b[1]==="?"?ze:b[1]==="@"?qe:ie}),r.removeAttribute(c)}else c.startsWith(j)&&(a.push({type:6,index:o}),r.removeAttribute(c));if(di.test(r.tagName)){let c=r.textContent.split(j),g=c.length-1;if(g>0){r.textContent=Ne?Ne.emptyScript:"";for(let f=0;f<g;f++)r.append(c[f],ve()),Q.nextNode(),a.push({type:2,index:++o});r.append(c[g],ve())}}}else if(r.nodeType===8)if(r.data===qt)a.push({type:2,index:o});else{let c=-1;for(;(c=r.data.indexOf(j,c+1))!==-1;)a.push({type:7,index:o}),c+=j.length-1}o++}}static createElement(t,e){let n=ee.createElement("template");return n.innerHTML=t,n}};function te(i,t,e=i,n){if(t===D)return t;let r=n!==void 0?e._$Co?.[n]:e._$Cl,o=xe(t)?void 0:t._$litDirective$;return r?.constructor!==o&&(r?._$AO?.(!1),o===void 0?r=void 0:(r=new o(i),r._$AT(i,e,n)),n!==void 0?(e._$Co??=[])[n]=r:e._$Cl=r),r!==void 0&&(t=te(i,r._$AS(i,t.values),r,n)),t}var je=class{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){let{el:{content:e},parts:n}=this._$AD,r=(t?.creationScope??ee).importNode(e,!0);Q.currentNode=r;let o=Q.nextNode(),s=0,d=0,a=n[0];for(;a!==void 0;){if(s===a.index){let h;a.type===2?h=new le(o,o.nextSibling,this,t):a.type===1?h=new a.ctor(o,a.name,a.strings,this,t):a.type===6&&(h=new Ve(o,this,t)),this._$AV.push(h),a=n[++d]}s!==a?.index&&(o=Q.nextNode(),s++)}return Q.currentNode=ee,r}p(t){let e=0;for(let n of this._$AV)n!==void 0&&(n.strings!==void 0?(n._$AI(t,n,e),e+=n.strings.length-2):n._$AI(t[e])),e++}},le=class i{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,e,n,r){this.type=2,this._$AH=k,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let t=this._$AA.parentNode,e=this._$AM;return e!==void 0&&t?.nodeType===11&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=te(this,t,e),xe(t)?t===k||t==null||t===""?(this._$AH!==k&&this._$AR(),this._$AH=k):t!==this._$AH&&t!==D&&this._(t):t._$litType$!==void 0?this.$(t):t.nodeType!==void 0?this.T(t):li(t)?this.k(t):this._(t)}S(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.S(t))}_(t){this._$AH!==k&&xe(this._$AH)?this._$AA.nextSibling.data=t:this.T(ee.createTextNode(t)),this._$AH=t}$(t){let{values:e,_$litType$:n}=t,r=typeof n=="number"?this._$AC(t):(n.el===void 0&&(n.el=we.createElement(pi(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(e);else{let o=new je(r,this),s=o.u(this.options);o.p(e),this.T(s),this._$AH=o}}_$AC(t){let e=si.get(t.strings);return e===void 0&&si.set(t.strings,e=new we(t)),e}k(t){ai(this._$AH)||(this._$AH=[],this._$AR());let e=this._$AH,n,r=0;for(let o of t)r===e.length?e.push(n=new i(this.S(ve()),this.S(ve()),this,this.options)):n=e[r],n._$AI(o),r++;r<e.length&&(this._$AR(n&&n._$AB.nextSibling,r),e.length=r)}_$AR(t=this._$AA.nextSibling,e){for(this._$AP?.(!1,!0,e);t&&t!==this._$AB;){let n=t.nextSibling;t.remove(),t=n}}setConnected(t){this._$AM===void 0&&(this._$Cv=t,this._$AP?.(t))}},ie=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,n,r,o){this.type=1,this._$AH=k,this._$AN=void 0,this.element=t,this.name=e,this._$AM=r,this.options=o,n.length>2||n[0]!==""||n[1]!==""?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=k}_$AI(t,e=this,n,r){let o=this.strings,s=!1;if(o===void 0)t=te(this,t,e,0),s=!xe(t)||t!==this._$AH&&t!==D,s&&(this._$AH=t);else{let d=t,a,h;for(t=o[0],a=0;a<o.length-1;a++)h=te(this,d[n+a],e,a),h===D&&(h=this._$AH[a]),s||=!xe(h)||h!==this._$AH[a],h===k?t=k:t!==k&&(t+=(h??"")+o[a+1]),this._$AH[a]=h}s&&!r&&this.j(t)}j(t){t===k?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}},Be=class extends ie{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===k?void 0:t}},ze=class extends ie{constructor(){super(...arguments),this.type=4}j(t){this.element.toggleAttribute(this.name,!!t&&t!==k)}},qe=class extends ie{constructor(t,e,n,r,o){super(t,e,n,r,o),this.type=5}_$AI(t,e=this){if((t=te(this,t,e,0)??k)===D)return;let n=this._$AH,r=t===k&&n!==k||t.capture!==n.capture||t.once!==n.once||t.passive!==n.passive,o=t!==k&&(n===k||r);r&&this.element.removeEventListener(this.name,this,n),o&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){typeof this._$AH=="function"?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t)}},Ve=class{constructor(t,e,n){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(t){te(this,t)}},ui={P:zt,A:j,C:qt,M:1,L:hi,R:je,D:li,V:te,I:le,H:ie,N:ze,U:qe,B:Be,F:Ve},Hn=Bt.litHtmlPolyfillSupport;Hn?.(we,le),(Bt.litHtmlVersions??=[]).push("3.1.2");var mi=(i,t,e)=>{let n=e?.renderBefore??t,r=n._$litPart$;if(r===void 0){let o=e?.renderBefore??null;n._$litPart$=r=new le(t.insertBefore(ve(),o),o,void 0,e??{})}return r._$AI(i),r};var x=class extends N{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){let e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=mi(e,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return D}};x._$litElement$=!0,x.finalized=!0,globalThis.litElementHydrateSupport?.({LitElement:x});var On=globalThis.litElementPolyfillSupport;On?.({LitElement:x});(globalThis.litElementVersions??=[]).push("4.0.4");var _=i=>(t,e)=>{e!==void 0?e.addInitializer(()=>{customElements.define(i,t)}):customElements.define(i,t)};var Fn={attribute:!0,type:String,converter:ge,reflect:!1,hasChanged:Ue},In=(i=Fn,t,e)=>{let{kind:n,metadata:r}=e,o=globalThis.litPropertyMetadata.get(r);if(o===void 0&&globalThis.litPropertyMetadata.set(r,o=new Map),o.set(e.name,i),n==="accessor"){let{name:s}=e;return{set(d){let a=t.get.call(this);t.set.call(this,d),this.requestUpdate(s,a,i)},init(d){return d!==void 0&&this.P(s,void 0,i),d}}}if(n==="setter"){let{name:s}=e;return function(d){let a=this[s];t.call(this,d),this.requestUpdate(s,a,i)}}throw Error("Unsupported decorator location: "+n)};function A(i){return(t,e)=>typeof e=="object"?In(i,t,e):((n,r,o)=>{let s=r.hasOwnProperty(o);return r.constructor.createProperty(o,s?{...n,wrapped:!0}:n),s?Object.getOwnPropertyDescriptor(r,o):void 0})(i,t,e)}function We(i){return A({...i,state:!0,attribute:!1})}var ne=(i,t,e)=>(e.configurable=!0,e.enumerable=!0,Reflect.decorate&&typeof t!="object"&&Object.defineProperty(i,t,e),e);function W(i,t){return(e,n,r)=>{let o=s=>s.renderRoot?.querySelector(i)??null;if(t){let{get:s,set:d}=typeof n=="object"?e:r??(()=>{let a=Symbol();return{get(){return this[a]},set(h){this[a]=h}}})();return ne(e,n,{get(){let a=s.call(this);return a===void 0&&(a=o(this),(a!==null||this.hasUpdated)&&d.call(this,a)),a}})}return ne(e,n,{get(){return o(this)}})}}var fi='data:image/svg+xml,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">%0A  <path%0A    style="fill:%23ffffe6;stroke:%239a9a9a"%0A    d="M 0.5,0.5 H 15.5 V 12 L 14,14 12,15.5 H 0.5 Z"%0A  />%0A  <path%0A    style="fill:%23ffffd7;stroke:%239a9a9a"%0A    d="m 11.5,11.5 h 5 c 0,0 -5,5 -5,5 Z"%0A  />%0A%0A  <path style="stroke:%23000000" d="M 2,2.5 H 14"/>%0A  <path style="stroke:%23000000" d="M 2,4.5 H 14"/>%0A  <path style="stroke:%23000000" d="M 2,6.5 H 8"/>%0A</svg>%0A';var gi='data:image/svg+xml,<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">%0A  <path%0A     style="fill:%23ffffe6;stroke:%239a9a9a"%0A     d="M 10,15.5 H 0.5 v -15 h 15 V 10"%0A  />%0A  <path%0A    style="fill:%23ffffd7;stroke:%239a9a9a"%0A    d="m 10.5,10.5 h 5 c 0,0 -5,5 -5,5 Z"%0A  />%0A</svg>%0A';var Vt=(()=>{if(typeof self>"u")return!1;if("top"in self&&self!==top)try{top.window.document._=0}catch{return!1}return"showOpenFilePicker"in self})(),jn=Vt?Promise.resolve().then(function(){return Vn}):Promise.resolve().then(function(){return Zn});async function yi(...i){return(await jn).default(...i)}var ao=Vt?Promise.resolve().then(function(){return Gn}):Promise.resolve().then(function(){return Qn});var Bn=Vt?Promise.resolve().then(function(){return Xn}):Promise.resolve().then(function(){return tr});async function vi(...i){return(await Bn).default(...i)}var zn=async i=>{let t=await i.getFile();return t.handle=i,t},qn=async(i=[{}])=>{Array.isArray(i)||(i=[i]);let t=[];i.forEach((r,o)=>{t[o]={description:r.description||"Files",accept:{}},r.mimeTypes?r.mimeTypes.map(s=>{t[o].accept[s]=r.extensions||[]}):t[o].accept["*/*"]=r.extensions||[]});let e=await window.showOpenFilePicker({id:i[0].id,startIn:i[0].startIn,types:t,multiple:i[0].multiple||!1,excludeAcceptAllOption:i[0].excludeAcceptAllOption||!1}),n=await Promise.all(e.map(zn));return i[0].multiple?n:n[0]},Vn={__proto__:null,default:qn};function Ge(i){function t(e){if(Object(e)!==e)return Promise.reject(new TypeError(e+" is not an object."));var n=e.done;return Promise.resolve(e.value).then(function(r){return{value:r,done:n}})}return Ge=function(e){this.s=e,this.n=e.next},Ge.prototype={s:null,n:null,next:function(){return t(this.n.apply(this.s,arguments))},return:function(e){var n=this.s.return;return n===void 0?Promise.resolve({value:e,done:!0}):t(n.apply(this.s,arguments))},throw:function(e){var n=this.s.return;return n===void 0?Promise.reject(e):t(n.apply(this.s,arguments))}},new Ge(i)}var xi=async(i,t,e=i.name,n)=>{let r=[],o=[];var s,d=!1,a=!1;try{for(var h,y=function(c){var g,f,b,P=2;for(typeof Symbol<"u"&&(f=Symbol.asyncIterator,b=Symbol.iterator);P--;){if(f&&(g=c[f])!=null)return g.call(c);if(b&&(g=c[b])!=null)return new Ge(g.call(c));f="@@asyncIterator",b="@@iterator"}throw new TypeError("Object is not async iterable")}(i.values());d=!(h=await y.next()).done;d=!1){let c=h.value,g=`${e}/${c.name}`;c.kind==="file"?o.push(c.getFile().then(f=>(f.directoryHandle=i,f.handle=c,Object.defineProperty(f,"webkitRelativePath",{configurable:!0,enumerable:!0,get:()=>g})))):c.kind!=="directory"||!t||n&&n(c)||r.push(xi(c,t,g,n))}}catch(c){a=!0,s=c}finally{try{d&&y.return!=null&&await y.return()}finally{if(a)throw s}}return[...(await Promise.all(r)).flat(),...await Promise.all(o)]},Wn=async(i={})=>{i.recursive=i.recursive||!1,i.mode=i.mode||"read";let t=await window.showDirectoryPicker({id:i.id,startIn:i.startIn,mode:i.mode});return(await(await t.values()).next()).done?[t]:xi(t,i.recursive,void 0,i.skipDirectory)},Gn={__proto__:null,default:Wn},Kn=async(i,t=[{}],e=null,n=!1,r=null)=>{Array.isArray(t)||(t=[t]),t[0].fileName=t[0].fileName||"Untitled";let o=[],s=null;if(i instanceof Blob&&i.type?s=i.type:i.headers&&i.headers.get("content-type")&&(s=i.headers.get("content-type")),t.forEach((h,y)=>{o[y]={description:h.description||"Files",accept:{}},h.mimeTypes?(y===0&&s&&h.mimeTypes.push(s),h.mimeTypes.map(c=>{o[y].accept[c]=h.extensions||[]})):s?o[y].accept[s]=h.extensions||[]:o[y].accept["*/*"]=h.extensions||[]}),e)try{await e.getFile()}catch(h){if(e=null,n)throw h}let d=e||await window.showSaveFilePicker({suggestedName:t[0].fileName,id:t[0].id,startIn:t[0].startIn,types:o,excludeAcceptAllOption:t[0].excludeAcceptAllOption||!1});!e&&r&&r(d);let a=await d.createWritable();return"stream"in i?(await i.stream().pipeTo(a),d):"body"in i?(await i.body.pipeTo(a),d):(await a.write(await i),await a.close(),d)},Xn={__proto__:null,default:Kn},Yn=async(i=[{}])=>(Array.isArray(i)||(i=[i]),new Promise((t,e)=>{let n=document.createElement("input");n.type="file";let r=[...i.map(a=>a.mimeTypes||[]),...i.map(a=>a.extensions||[])].join();n.multiple=i[0].multiple||!1,n.accept=r||"",n.style.display="none",document.body.append(n);let o=a=>{typeof s=="function"&&s(),t(a)},s=i[0].legacySetup&&i[0].legacySetup(o,()=>s(e),n),d=()=>{window.removeEventListener("focus",d),n.remove()};n.addEventListener("click",()=>{window.addEventListener("focus",d)}),n.addEventListener("change",()=>{window.removeEventListener("focus",d),n.remove(),o(n.multiple?Array.from(n.files):n.files[0])}),"showPicker"in HTMLInputElement.prototype?n.showPicker():n.click()})),Zn={__proto__:null,default:Yn},Jn=async(i=[{}])=>(Array.isArray(i)||(i=[i]),i[0].recursive=i[0].recursive||!1,new Promise((t,e)=>{let n=document.createElement("input");n.type="file",n.webkitdirectory=!0;let r=s=>{typeof o=="function"&&o(),t(s)},o=i[0].legacySetup&&i[0].legacySetup(r,()=>o(e),n);n.addEventListener("change",()=>{let s=Array.from(n.files);i[0].recursive?i[0].recursive&&i[0].skipDirectory&&(s=s.filter(d=>d.webkitRelativePath.split("/").every(a=>!i[0].skipDirectory({name:a,kind:"directory"})))):s=s.filter(d=>d.webkitRelativePath.split("/").length===2),r(s)}),"showPicker"in HTMLInputElement.prototype?n.showPicker():n.click()})),Qn={__proto__:null,default:Jn},er=async(i,t={})=>{Array.isArray(t)&&(t=t[0]);let e=document.createElement("a"),n=i;"body"in i&&(n=await async function(s,d){let a=s.getReader(),h=new ReadableStream({start:g=>async function f(){return a.read().then(({done:b,value:P})=>{if(!b)return g.enqueue(P),f();g.close()})}()}),y=new Response(h),c=await y.blob();return a.releaseLock(),new Blob([c],{type:d})}(i.body,i.headers.get("content-type"))),e.download=t.fileName||"Untitled",e.href=URL.createObjectURL(await n);let r=()=>{typeof o=="function"&&o()},o=t.legacySetup&&t.legacySetup(r,()=>o(),e);return e.addEventListener("click",()=>{setTimeout(()=>URL.revokeObjectURL(e.href),3e4),r()}),e.click(),null},tr={__proto__:null,default:er};var wi=".text",bi="text/plain",Ei=[wi,".md",".txt"];async function $i(){let i;try{i=await yi({mimeTypes:[bi],extensions:[...Ei],description:"Plain Text Files"})}catch(t){if(_i(t))return;throw t}return{file:i,handle:i.handle}}async function ki(i){return i.handle?{file:await i.handle.getFile(),handle:i.handle}:i}function Ti(i,t){return i.file.lastModified<t.file.lastModified}async function Wt(i,t){let e;try{e=await vi(new Blob([t],{type:bi}),{fileName:i?.file.name??`untitled${wi}`,extensions:[...Ei]},i?.handle)}catch(n){if(_i(n))return i;throw n}return e?{file:await e.getFile(),handle:e}:i}function _i(i){return i instanceof DOMException?i.name==="AbortError"||i.name==="NotAllowedError":!1}function H(i,t,e){return i.up=t,i.down??=[],t&&(t.down??=[],t.down.splice(e<0?t.down.length+1+e:e,0,i)),i}function Ke(i){if(!i.up)return i;let t=i.up.down?.indexOf(i)??-1;if(t===-1)throw Error("up missing down tree");return i.up.down.splice(t,1),i}function B(i){for(;i.up;)i=i.up;return i}function z(i){let t={...i};for(let n of i.down??[])n.up=t;if(!i.up)return t;let e=i.up.down?.indexOf(i)??-1;if(e===-1)throw Error("up missing down tree");return i.up.down[e]=t,z(i.up),t}function ir(){let i=0;return()=>i++}var Gt=ir();function $(i,t,e=Gt){let n={down:[],id:e(),indentW:t,type:"TextTree"},r;for(let{start:o,text:s,end:d}of rr(i)){if(!s&&!o){let h=n.down.at(-1)??H({id:e(),type:"Group"},n,-1);H({id:e(),end:d,type:"EOL"},h,-1);continue}let a=nr(o,t);if(a&&n.down.at(-1)?.down.at(-1)?.type==="EOL"){let h=Ke(n.down.at(-1).down.at(-1));r=H({end:h.end,expand:!1,id:h.id,indent:r?r.indent+1:0,text:"",type:"Line"},r??h.up,-1)}if(n.down.length===0||n.down.at(-1).down.at(-1)?.type==="EOL"){let h=H({id:e(),type:"Group"},n,-1);r=H({end:d,expand:!1,id:e(),indent:0,text:s,type:"Line"},h,-1);continue}for(;r.up.type==="Line"&&a<r.indent;)r=r.up;r=H({end:d,expand:!1,id:e(),indent:a,text:s,type:"Line"},a<=r.indent?r.up:r,-1)}return n}$.addLine=(i,t,e,n=Gt)=>{let r,o,s;if(i.type==="Group"){if(t!=="In")throw Error("adding to group requires in position");s=i,o=0,r=0}else s=t==="In"?i:i.up,o=i.indent+(t==="In"?1:0),r=s.down.indexOf(i)+(t==="Start"?0:1);let d=H({end:e,expand:!1,id:n(),indent:o,text:"",type:"Line"},s,r);return B(z(d))};$.breakLine=(i,t,e,n=Gt)=>{if(t<0||t>i.text.length)return{root:B(i),new:i};let r=i.text.slice(0,t),o=i.text.slice(t);i.text=r,i=z(i);let s=H({end:e,expand:!1,id:n(),indent:i.indent,text:o,type:"Line"},i.up,i.up.down.indexOf(i)+1);return{root:B(s),new:s}};$.moveLine=(i,t,e)=>{if(i===t)return B(i);let n,r,o;if(t.type==="Group"){if(e!=="In")throw Error("adding to group requires in position");o=t,r=0,n=0}else o=e==="In"?t:t.up,r=t.indent+(e==="In"?1:0),n=o.down.indexOf(t)+(e==="Start"?0:1);let s=i.up;return Ke(i),H(i,o,n),Si(i,r),t.type==="Line"&&e==="In"&&(t.expand=!0),t.type==="Line"&&(t.end="LF"),z(s),B(z(i))};$.removeLine=i=>(Ke(i),B(z(i.up)));$.setLineText=(i,t)=>(i.text=t.replaceAll(/\r?\n/g,""),B(z(i)));$.setLineExpand=(i,t)=>(i.expand=t,B(z(i)));$.toString=i=>Xe([i],i.indentW);function Li(i){return i==="LF"?`
+`:i==="CRLF"?`\r
+`:i}function nr(i,t){let e=0;for(let n of i)if(n===" ")e+=1/(t==="Tab"?2:t);else if(n==="	")e++;else break;return Math.floor(e)}function Xe(i,t){let e="";for(let n of i)if(n.type==="TextTree")e+=Xe(n.down,t);else if(n.type==="EOL")e+=Li(n.end);else if(n.type==="Group")e+=Xe(n.down,t);else if(n.type==="Line"){let r=(t==="Tab"?"	":" ".repeat(t)).repeat(n.indent);e+=`${r}${n.text}${Li(n.end)}${Xe(n.down,t)}`}return e}function Si(i,t){i.indent=t;for(let e of i.down)Si(e,t+1)}function*rr(i){let t="",e="",n="";for(let r of i)e?r===`
+`?(e.at(-1)==="\r"?(n="CRLF",e=e.slice(0,-1)):n="LF",yield{start:t,text:e,end:n},t=e=n=""):e+=r:r===" "||r==="	"?t+=r:r===`
+`?(n="LF",yield{start:t,text:e,end:n},t=e=n=""):e+=r;(t||e||n)&&(yield{start:t,text:e,end:n})}var Ai="linearText";function Ri(i,t,e){let n={filename:i,saved:t,text:$.toString(e),version:1};localStorage.setItem(Ai,JSON.stringify(n))}function Ci(){let i=localStorage.getItem(Ai);if(i)return JSON.parse(i)}var L=w`
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box; /* Dimensions include any border and padding. */
+  }
+`;function S(i,t){return new CustomEvent(i,{bubbles:!0,composed:!0,detail:t})}var re=class extends x{constructor(){super(...arguments);this.disabled=!1;this.icon=""}render(){let e=this.icon?E`<img
+          accesskey=${this.accessKey}
+          decoding="sync"
+          loading="eager"
+          src=${this.icon}
+        />`:k;return E`<button ?disabled=${this.disabled}>
+      ${e}<slot></slot>
+    </button>`}};re.styles=w`
+    ${L}
+
+    :host {
+      display: inline-block;
+      width: fit-content;
+      height: fit-content;
+      margin: 2px;
+    }
+
+    /* Default button styles. Medium size. */
+    button {
+      /* Center the content. */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      column-gap: 4px;
+
+      /* Clear blue wash when interacting on mobile. */
+      /* -webkit-tap-highlight-color: transparent; */
+
+      /* Buttons have rounded corners, thin grey borders, and slightly extrude. */
+      border-width: 0.5px;
+      border-style: outset;
+      border-color: #ccc;
+      border-radius: 2px;
+
+      background-color: #efefef;
+
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+
+      /* Inherit font. */
+      font-family: inherit;
+      font-size: inherit;
+      font-stretch: inherit;
+      font-style: inherit;
+      font-variant: inherit;
+      font-variant-caps: small-caps;
+      font-weight: inherit;
+      line-height: inherit;
+
+      /* Don't allow content highlights. */
+      /* user-select: none; */
+
+      /* Label must appear on one line. */
+      white-space: nowrap;
+
+      /* --min-press-size: 24px;
+      min-width: var(--min-press-size);
+      min-height: var(--min-press-size); */
+      padding: 4px;
+    }
+
+    button[disabled] {
+      /* Fade disabled button. */
+      opacity: 0.5;
+    }
+
+    button:not([disabled]):active {
+      border-style: inset;
+    }
+
+    button:not([disabled]):hover {
+      background-color: #f0f2f0;
+    }
+
+    img {
+      display: inline-block;
+      /* Disable dragging. vs user-select in line-input*/
+      -webkit-user-drag: none;
+      width: 16px;
+      height: 16px;
+    }
+  `,m([A({type:Boolean})],re.prototype,"disabled",2),m([A()],re.prototype,"icon",2),re=m([_("button-el")],re);var Pi='data:image/svg+xml,<?xml version="1.0" encoding="UTF-8" standalone="no"?>%0A<svg%0A   xmlns:dc="http://purl.org/dc/elements/1.1/"%0A   xmlns:cc="http://creativecommons.org/ns%23"%0A   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns%23"%0A   xmlns:svg="http://www.w3.org/2000/svg"%0A   xmlns="http://www.w3.org/2000/svg"%0A   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"%0A   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"%0A   width="20"%0A   height="20"%0A   viewBox="0 0 5.2916668 5.2916668"%0A   version="1.1"%0A   id="svg8"%0A   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"%0A   sodipodi:docname="menu-icon-load-file.svg">%0A  <defs%0A     id="defs2" />%0A  <sodipodi:namedview%0A     id="base"%0A     pagecolor="%23ffffff"%0A     bordercolor="%23666666"%0A     borderopacity="1.0"%0A     inkscape:pageopacity="0.0"%0A     inkscape:pageshadow="2"%0A     inkscape:zoom="31.678384"%0A     inkscape:cx="9.0083838"%0A     inkscape:cy="10.932754"%0A     inkscape:document-units="mm"%0A     inkscape:current-layer="layer1"%0A     inkscape:document-rotation="0"%0A     showgrid="false"%0A     showguides="false"%0A     inkscape:window-width="1920"%0A     inkscape:window-height="1016"%0A     inkscape:window-x="0"%0A     inkscape:window-y="27"%0A     inkscape:window-maximized="1"%0A     units="px"%0A     fit-margin-top="0"%0A     fit-margin-left="0"%0A     fit-margin-right="0"%0A     fit-margin-bottom="0" />%0A  <metadata%0A     id="metadata5">%0A    <rdf:RDF>%0A      <cc:Work%0A         rdf:about="">%0A        <dc:format>image/svg+xml</dc:format>%0A        <dc:type%0A           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />%0A        <dc:title></dc:title>%0A      </cc:Work>%0A    </rdf:RDF>%0A  </metadata>%0A  <g%0A     inkscape:label="Layer 1"%0A     inkscape:groupmode="layer"%0A     id="layer1"%0A     transform="translate(-4.2333334,-2.6458333)">%0A    <rect%0A       style="fill:none;stroke:%23404040;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"%0A       id="rect844"%0A       width="3.9683332"%0A       height="5.0266666"%0A       x="4.895"%0A       y="2.7783332" />%0A    <path%0A       style="fill:none;fill-opacity:1;stroke:%23000000;stroke-width:0.265;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"%0A       d="m 6.4822806,6.6145753 2.23e-5,-1.4552085 H 5.8208334 L 6.8791667,3.8364501 7.9375001,5.1593668 H 7.2760417 v 1.4552085 z"%0A       id="path834"%0A       sodipodi:nodetypes="cccccccc" />%0A  </g>%0A</svg>%0A';var Mi='data:image/svg+xml,<?xml version="1.0" encoding="UTF-8" standalone="no"?>%0A<svg%0A   xmlns:dc="http://purl.org/dc/elements/1.1/"%0A   xmlns:cc="http://creativecommons.org/ns%23"%0A   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns%23"%0A   xmlns:svg="http://www.w3.org/2000/svg"%0A   xmlns="http://www.w3.org/2000/svg"%0A   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"%0A   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"%0A   width="20"%0A   height="20"%0A   viewBox="0 0 5.2916668 5.2916668"%0A   version="1.1"%0A   id="svg8"%0A   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"%0A   sodipodi:docname="toolbar-icon-new-file.svg">%0A  <defs%0A     id="defs2" />%0A  <sodipodi:namedview%0A     id="base"%0A     pagecolor="%23ffffff"%0A     bordercolor="%23666666"%0A     borderopacity="1.0"%0A     inkscape:pageopacity="0.0"%0A     inkscape:pageshadow="2"%0A     inkscape:zoom="15.839192"%0A     inkscape:cx="9.6968009"%0A     inkscape:cy="15.02461"%0A     inkscape:document-units="mm"%0A     inkscape:current-layer="layer1"%0A     inkscape:document-rotation="0"%0A     showgrid="false"%0A     showguides="false"%0A     inkscape:window-width="2560"%0A     inkscape:window-height="1376"%0A     inkscape:window-x="0"%0A     inkscape:window-y="27"%0A     inkscape:window-maximized="1"%0A     units="px"%0A     fit-margin-top="0"%0A     fit-margin-left="0"%0A     fit-margin-right="0"%0A     fit-margin-bottom="0" />%0A  <metadata%0A     id="metadata5">%0A    <rdf:RDF>%0A      <cc:Work%0A         rdf:about="">%0A        <dc:format>image/svg+xml</dc:format>%0A        <dc:type%0A           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />%0A        <dc:title />%0A      </cc:Work>%0A    </rdf:RDF>%0A  </metadata>%0A  <g%0A     inkscape:label="Layer 1"%0A     inkscape:groupmode="layer"%0A     id="layer1"%0A     transform="translate(-4.2333334,-2.6458333)">%0A    <rect%0A       style="fill:none;stroke:%23404040;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"%0A       id="rect844"%0A       width="3.9683332"%0A       height="5.0266666"%0A       x="4.895"%0A       y="2.7783332" />%0A  </g>%0A</svg>%0A';var Di='data:image/svg+xml,<?xml version="1.0" encoding="UTF-8" standalone="no"?>%0A<svg%0A   xmlns:dc="http://purl.org/dc/elements/1.1/"%0A   xmlns:cc="http://creativecommons.org/ns%23"%0A   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns%23"%0A   xmlns:svg="http://www.w3.org/2000/svg"%0A   xmlns="http://www.w3.org/2000/svg"%0A   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"%0A   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"%0A   width="20"%0A   height="20"%0A   viewBox="0 0 5.2916668 5.2916668"%0A   version="1.1"%0A   id="svg8"%0A   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"%0A   sodipodi:docname="menu-icon-save-file-as.svg">%0A  <defs%0A     id="defs2" />%0A  <sodipodi:namedview%0A     id="base"%0A     pagecolor="%23ffffff"%0A     bordercolor="%23666666"%0A     borderopacity="1.0"%0A     inkscape:pageopacity="0.0"%0A     inkscape:pageshadow="2"%0A     inkscape:zoom="31.678384"%0A     inkscape:cx="9.0083838"%0A     inkscape:cy="10.932754"%0A     inkscape:document-units="mm"%0A     inkscape:current-layer="layer1"%0A     inkscape:document-rotation="0"%0A     showgrid="false"%0A     showguides="false"%0A     inkscape:window-width="1920"%0A     inkscape:window-height="1016"%0A     inkscape:window-x="0"%0A     inkscape:window-y="27"%0A     inkscape:window-maximized="1"%0A     units="px"%0A     fit-margin-top="0"%0A     fit-margin-left="0"%0A     fit-margin-right="0"%0A     fit-margin-bottom="0" />%0A  <metadata%0A     id="metadata5">%0A    <rdf:RDF>%0A      <cc:Work%0A         rdf:about="">%0A        <dc:format>image/svg+xml</dc:format>%0A        <dc:type%0A           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />%0A        <dc:title />%0A      </cc:Work>%0A    </rdf:RDF>%0A  </metadata>%0A  <g%0A     inkscape:label="Layer 1"%0A     inkscape:groupmode="layer"%0A     id="layer1"%0A     transform="translate(-4.2333334,-2.6458333)">%0A    <rect%0A       style="fill:none;stroke:%23404040;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"%0A       id="rect844"%0A       width="3.9683332"%0A       height="5.0266666"%0A       x="4.895"%0A       y="2.7783332" />%0A    <path%0A       style="fill:none;fill-opacity:1;stroke:%23000000;stroke-width:0.265;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"%0A       d="M 5.7573254,4.3153111 6.5920169,5.5073353 6.0501728,5.8867386 7.6759026,6.3633735 7.7840447,4.6726685 7.2422097,5.0520654 6.4075364,3.8600284 Z"%0A       id="path834"%0A       sodipodi:nodetypes="cccccccc" />%0A  </g>%0A</svg>%0A';var Hi='data:image/svg+xml,<?xml version="1.0" encoding="UTF-8" standalone="no"?>%0A<svg%0A   xmlns:dc="http://purl.org/dc/elements/1.1/"%0A   xmlns:cc="http://creativecommons.org/ns%23"%0A   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns%23"%0A   xmlns:svg="http://www.w3.org/2000/svg"%0A   xmlns="http://www.w3.org/2000/svg"%0A   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"%0A   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"%0A   width="20"%0A   height="20"%0A   viewBox="0 0 5.2916668 5.2916668"%0A   version="1.1"%0A   id="svg8"%0A   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"%0A   sodipodi:docname="menu-icon-save-file.svg">%0A  <defs%0A     id="defs2" />%0A  <sodipodi:namedview%0A     id="base"%0A     pagecolor="%23ffffff"%0A     bordercolor="%23666666"%0A     borderopacity="1.0"%0A     inkscape:pageopacity="0.0"%0A     inkscape:pageshadow="2"%0A     inkscape:zoom="31.678384"%0A     inkscape:cx="9.0083838"%0A     inkscape:cy="10.932754"%0A     inkscape:document-units="mm"%0A     inkscape:current-layer="layer1"%0A     inkscape:document-rotation="0"%0A     showgrid="false"%0A     showguides="false"%0A     inkscape:window-width="1920"%0A     inkscape:window-height="1016"%0A     inkscape:window-x="0"%0A     inkscape:window-y="27"%0A     inkscape:window-maximized="1"%0A     units="px"%0A     fit-margin-top="0"%0A     fit-margin-left="0"%0A     fit-margin-right="0"%0A     fit-margin-bottom="0" />%0A  <metadata%0A     id="metadata5">%0A    <rdf:RDF>%0A      <cc:Work%0A         rdf:about="">%0A        <dc:format>image/svg+xml</dc:format>%0A        <dc:type%0A           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />%0A        <dc:title />%0A      </cc:Work>%0A    </rdf:RDF>%0A  </metadata>%0A  <g%0A     inkscape:label="Layer 1"%0A     inkscape:groupmode="layer"%0A     id="layer1"%0A     transform="translate(-4.2333334,-2.6458333)">%0A    <rect%0A       style="fill:none;stroke:%23404040;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"%0A       id="rect844"%0A       width="3.9683332"%0A       height="5.0266666"%0A       x="4.895"%0A       y="2.7783332" />%0A    <path%0A       style="fill:none;fill-opacity:1;stroke:%23000000;stroke-width:0.265;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"%0A       d="m 6.4822806,3.8364581 2.23e-5,1.4552085 H 5.8208334 L 6.8791667,6.6145833 7.9375001,5.2916666 H 7.2760417 V 3.8364581 Z"%0A       id="path834"%0A       sodipodi:nodetypes="cccccccc" />%0A  </g>%0A</svg>%0A';var be=class extends x{render(){return E`
+      <button-el
+        accesskey="o"
+        icon=${Pi}
+        title="Load file [alt-o]."
+        @click=${()=>this.dispatchEvent(S("open-file",void 0))}
+      >
+        Open…</button-el
+      ><button-el
+        accesskey="s"
+        icon=${Hi}
+        title="Write file [alt-s]."
+        @click=${()=>this.dispatchEvent(S("save-file",void 0))}
+      >
+        Save</button-el
+      ><button-el
+        icon=${Di}
+        title="Open file save dialog."
+        @click=${()=>this.dispatchEvent(S("save-file-as",void 0))}
+      >
+        Save As…</button-el
+      ><button-el
+        accesskey="n"
+        icon=${Mi}
+        title="Load empty file [alt-n]."
+        @click=${()=>this.dispatchEvent(S("new-file",void 0))}
+      >
+        New
+      </button-el>
+    `}};be.styles=w`
+    ${L}
+
+    :host {
+      display: flex;
+      padding: 4px;
+      border-radius: 2px;
+
+      padding: 2px;
+      border-width: 1px;
+      border-top-color: #ccc;
+      border-left-color: #ccc;
+      border-right-color: #ccc;
+      border-bottom-color: #000;
+      border-style: solid;
+      border-radius: 2px;
+      background-color: #f0f2f0;
+    }
+  `,be=m([_("app-menu")],be);var Ye={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},de=i=>(...t)=>({_$litDirective$:i,values:t}),G=class{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,n){this._$Ct=t,this._$AM=e,this._$Ci=n}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}};var{I:dr}=ui;var Oi=()=>document.createComment(""),ce=(i,t,e)=>{let n=i._$AA.parentNode,r=t===void 0?i._$AB:t._$AA;if(e===void 0){let o=n.insertBefore(Oi(),r),s=n.insertBefore(Oi(),r);e=new dr(o,s,i,i.options)}else{let o=e._$AB.nextSibling,s=e._$AM,d=s!==i;if(d){let a;e._$AQ?.(i),e._$AM=i,e._$AP!==void 0&&(a=i._$AU)!==s._$AU&&e._$AP(a)}if(o!==r||d){let a=e._$AA;for(;a!==o;){let h=a.nextSibling;n.insertBefore(a,r),a=h}}}return e},K=(i,t,e=i)=>(i._$AI(t,e),i),cr={},Ze=(i,t=cr)=>i._$AH=t,Fi=i=>i._$AH,Je=i=>{i._$AP?.(!1,!0);let t=i._$AA,e=i._$AB.nextSibling;for(;t!==e;){let n=t.nextSibling;t.remove(),t=n}};var Ii=(i,t,e)=>{let n=new Map;for(let r=t;r<=e;r++)n.set(i[r],r);return n},Qe=de(class extends G{constructor(i){if(super(i),i.type!==Ye.CHILD)throw Error("repeat() can only be used in text expressions")}dt(i,t,e){let n;e===void 0?e=t:t!==void 0&&(n=t);let r=[],o=[],s=0;for(let d of i)r[s]=n?n(d,s):s,o[s]=e(d,s),s++;return{values:o,keys:r}}render(i,t,e){return this.dt(i,t,e).values}update(i,[t,e,n]){let r=Fi(i),{values:o,keys:s}=this.dt(t,e,n);if(!Array.isArray(r))return this.ut=s,o;let d=this.ut??=[],a=[],h,y,c=0,g=r.length-1,f=0,b=o.length-1;for(;c<=g&&f<=b;)if(r[c]===null)c++;else if(r[g]===null)g--;else if(d[c]===s[f])a[f]=K(r[c],o[f]),c++,f++;else if(d[g]===s[b])a[b]=K(r[g],o[b]),g--,b--;else if(d[c]===s[b])a[b]=K(r[c],o[b]),ce(i,a[b+1],r[c]),c++,b--;else if(d[g]===s[f])a[f]=K(r[g],o[f]),ce(i,r[c],r[g]),g--,f++;else if(h===void 0&&(h=Ii(s,f,b),y=Ii(d,c,g)),h.has(d[c]))if(h.has(d[g])){let P=y.get(s[f]),Ft=P!==void 0?r[P]:null;if(Ft===null){let Zt=ce(i,r[c]);K(Zt,o[f]),a[f]=Zt}else a[f]=K(Ft,o[f]),ce(i,r[c],Ft),r[P]=null;f++}else Je(r[g]),g--;else Je(r[c]),c++;for(;f<=b;){let P=ce(i,a[b+1]);K(P,o[f]),a[f++]=P}for(;c<=g;){let P=r[c++];P!==null&&Je(P)}return this.ut=s,Ze(i,a),D}});function Ui(){document.activeElement instanceof HTMLElement&&document.activeElement.blur()}function et(i){if(i.parentElement)return i.parentElement;let t=i.getRootNode();if(t instanceof ShadowRoot)return t.host}function Kt(i,t){let e=t.closest(i);if(e)return e;let n=et(t);if(n)return Kt(i,n)}function tt(i){let t=getComputedStyle(i);if(t.overflow==="auto"||t.overflow==="scroll")return i;let e=et(i);if(e)return tt(e)}function Ni(i,t){for(let e=document.elementFromPoint(i,t);;){let n=e?.shadowRoot?.elementFromPoint(i,t);if(!n||e===n)return e;e=n}}function ji(i,t,e,n){let r=t.x<e?-1:t.x>i.clientWidth-e?1:0,o=t.y<e?-1:t.y>i.clientHeight-e?1:0;i.scrollLeft=i.scrollLeft+r*n,i.scrollTop=i.scrollTop+o*n}var Bi=de(class extends G{constructor(){super(...arguments),this.key=k}render(i,t){return this.key=i,t}update(i,[t,e]){return t!==this.key&&(Ze(i),this.key=t),e}});var zi=de(class extends G{constructor(i){if(super(i),i.type!==Ye.ATTRIBUTE||i.name!=="class"||i.strings?.length>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(i){return" "+Object.keys(i).filter(t=>i[t]).join(" ")+" "}update(i,[t]){if(this.st===void 0){this.st=new Set,i.strings!==void 0&&(this.nt=new Set(i.strings.join(" ").split(/\s/).filter(n=>n!=="")));for(let n in t)t[n]&&!this.nt?.has(n)&&this.st.add(n);return this.render(t)}let e=i.element.classList;for(let n of this.st)n in t||(e.remove(n),this.st.delete(n));for(let n in t){let r=!!t[n];r===this.st.has(n)||this.nt?.has(n)||(r?(e.add(n),this.st.add(n)):(e.remove(n),this.st.delete(n)))}return D}});var X,it,qi,nt,Vi,rt,Wi,Ee,ot,Gi,st,Ki,at,Xi,lt,Yi,q=class extends x{constructor(){super();p(this,it);p(this,nt);p(this,rt);p(this,ot);p(this,st);p(this,at);p(this,lt);this.context={};this._spellcheck=!1;p(this,X,void 0);p(this,Ee,()=>{this._p.focus()});this.addEventListener("click",l(this,Ee))}render(){return this.line&&this.context.focus?.line===this.line&&requestAnimationFrame(()=>{this._p.focus(),this.context.focus?.startOfLine&&this.getSelection()?.setPosition(this._p,0)}),E`
+      <p
+        contenteditable="true"
+        .innerText=${l(this,X)??""}
+        role="textbox"
+        spellcheck="${this._spellcheck}"
+        tabindex="0"
+        @beforeinput=${u(this,nt,Vi)}
+        @blur=${u(this,rt,Wi)}
+        @click=${l(this,Ee)}
+        @dragstart=${u(this,ot,Gi)}
+        @focus=${u(this,st,Ki)}
+        @keyup=${u(this,at,Xi)}
+        @input=${u(this,lt,Yi)}
+      ></p>
+      <slot></slot>
+    `}shouldUpdate(e){let n=super.shouldUpdate(e);return this.line?.text===l(this,X)&&!e.has("_spellcheck")?!1:(v(this,X,this.line?.text),n)}getSelection(){return this.renderRoot.getSelection?.()??getSelection()}};X=new WeakMap,it=new WeakSet,qi=function(){return this.getSelection()?.getRangeAt(0).startOffset??0},nt=new WeakSet,Vi=function(e){if(/^(delete|history)/.test(e.inputType))return;if(e.preventDefault(),/insert(?:LineBreak|Paragraph)/.test(e.inputType)){this.dispatchEvent(S("break-text",u(this,it,qi).call(this)));return}if(!/^insert/.test(e.inputType))return;let r=(e.data??e.dataTransfer?.getData("text/plain"))?.replaceAll(/\r?\n/g,"");r&&(this._p.focus(),document.execCommand("insertText",!1,r))},rt=new WeakSet,Wi=function(){getSelection()?.empty(),this._spellcheck=!1,this.line&&this.dispatchEvent(S("blur-line",this.line))},Ee=new WeakMap,ot=new WeakSet,Gi=function(e){e.preventDefault()},st=new WeakSet,Ki=function(){if(this._spellcheck=!0,this.line&&this.dispatchEvent(S("focus-line",this.line)),this.context.focus?.startOfLine)return;let e=getSelection();if(!e)return;let n=document.createRange();n.selectNodeContents(this._p),n.collapse(!1),e.removeAllRanges(),e.addRange(n)},at=new WeakSet,Xi=function(e){e.key==="Escape"&&this.blur()},lt=new WeakSet,Yi=function(){v(this,X,this._p.textContent??""),this.dispatchEvent(S("edit-text",l(this,X)))},q.styles=w`
+    ${L}
+
+    ::selection {
+      background-color: var(--shade-bright-yellow);
+    }
+
+    p {
+      margin-block: 0;
+      /* Stagger bounding box to allow slotted button to float. */
+      display: inline;
+      /* break words if needed*/
+      overflow-wrap: break-word;
+    }
+    p::before {
+      /* force minimum height for empty text areas */
+      float: left;
+      content: '';
+      display: block;
+      min-height: 15.5px;
+    }
+
+    p:not(:focus) {
+      /* Disable text selection which may interfere with dragging. */
+      user-select: none;
+    }
+
+    p:focus {
+      cursor: text;
+      /* Disable Chrome and Firefox focus outline which is indicated by higher
+         level elements. */
+      outline-style: none;
+    }
+  `,m([A({attribute:!1})],q.prototype,"context",2),m([A({attribute:!1})],q.prototype,"line",2),m([W("p")],q.prototype,"_p",2),m([We()],q.prototype,"_spellcheck",2),q=m([_("line-input")],q);var dt,Zi,ct,Ji,pt,Qi,ht,en,ut,tn,Y=class extends x{constructor(){super(...arguments);p(this,dt);p(this,ct);p(this,pt);p(this,ht);p(this,ut);this.context={}}render(){return E`
+      <div class="note">
+        <div class="input-wrapper" @click=${u(this,dt,Zi)}>
+          <line-input
+            .context=${this.context}
+            .line=${this.line}
+            @blur=${u(this,pt,Qi)}
+            @break-text=${u(this,ht,en)}
+            @edit-text=${u(this,ut,tn)}
+            ><button
+              class=${zi({hidden:!this.line?.down.length})}
+              @click=${u(this,ct,Ji)}
+              title="Toggle sub-lines."
+            >
+              …
+            </button></line-input
+          >
+        </div>
+      </div>
+      <line-list
+        .context=${this.context}
+        ?data-expand=${!this.line?.down.length||this.line?.expand}
+        .list=${this.line}
+      ></line-list>
+    `}get rect(){return this.renderRoot.querySelector(".note").getBoundingClientRect()}};dt=new WeakSet,Zi=function(){this._input.click()},ct=new WeakSet,Ji=function(e){e.stopPropagation(),this.line&&this.dispatchEvent(S("expand-line",{line:this.line,expand:!this.line?.expand}))},pt=new WeakSet,Qi=function(){!this.line||this.line.text||this.line.down.length||this.dispatchEvent(S("remove-line",{line:this.line}))},ht=new WeakSet,en=function(e){this.line&&this.dispatchEvent(S("break-line",{line:this.line,at:e.detail}))},ut=new WeakSet,tn=function(e){this.line&&this.dispatchEvent(S("edit-line",{line:this.line,text:e.detail}))},Y.styles=w`
+    ${L}
+
+    :host {
+      contain: content;
+      --indent: 8px;
+    }
+
+    .note {
+      border-radius: 1px;
+      border-width: 0.5px;
+      border-color: #888;
+      border-style: solid;
+
+      padding-top: 8px;
+      padding-right: 6px;
+      padding-bottom: 6px;
+      padding-left: 6px;
+
+      background-color: var(--shade-yellow);
+      color: var(--color, --shade-black);
+
+      /* Show a pointing finger for the whole note except input. */
+      cursor: grab;
+
+      min-height: 24px;
+      width: var(--note-card-width);
+    }
+
+    .input-wrapper {
+      cursor: pointer;
+    }
+    .input-wrapper:focus-within {
+      cursor: text;
+    }
+    /* display inline on p, make dogear separate inline el */
+
+    .note:hover,
+    .note:focus-within,
+    :host(.ghost) > .note {
+      background-color: rgb(255, 255, 215);
+    }
+
+    :host(.picked) {
+      opacity: 0.3;
+      --color: #0000; /* Hide text on self and child notes. */
+    }
+
+    .note:focus-within {
+      border-color: black;
+    }
+
+    button {
+      background-color: #0000;
+      border-style: none;
+      cursor: pointer;
+      color: inherit;
+      padding-inline: 2px;
+      padding-block: 0; /* Avoid subtle layout shift for new parents. */
+    }
+
+    line-input {
+      cursor: pointer;
+    }
+
+    .note::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    button:hover {
+      /* to-do: vars */
+      background-color: #0001;
+    }
+
+    button {
+      float: inline-end;
+    }
+
+    .input-wrapper::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    line-list:not([data-expand]) {
+      /* Hide collapsed children. */
+      display: none;
+    }
+  `,m([A({attribute:!1})],Y.prototype,"context",2),m([A({attribute:!1})],Y.prototype,"line",2),m([W("line-input")],Y.prototype,"_input",2),Y=m([_("note-card")],Y);var O=class extends x{constructor(){super();this.context={};this._invalidate=Symbol();this.addEventListener("drag-line-invalidate",e=>{this._invalidate=Symbol(),e.stopPropagation()})}render(){let e=Qe(this.list?.down??[],n=>n.id,n=>n.type==="EOL"?k:E`<drag-line
+              ><note-card .context=${this.context} .line=${n}></note-card
+            ></drag-line>`);return E`${Bi(this._invalidate,e)}`}};O.styles=w`
+    ${L}
+
+    :host {
+      display: flex;
+      align-items: flex-start; /* Default is stretch which causes dragged children to be too wide. */
+      flex-direction: column;
+      /* Keep area when empty. */
+      min-width: var(--note-card-width);
+      min-height: 100%;
+    }
+
+    drag-line {
+      margin-top: 1px;
+    }
+
+    :not(:empty) {
+      margin-inline-start: var(--indent);
+    }
+  `,m([A({attribute:!1})],O.prototype,"context",2),m([A({attribute:!1})],O.prototype,"list",2),m([We()],O.prototype,"_invalidate",2),O=m([_("line-list")],O);var T,mt,ft,gt,ke,Xt,F=class extends x{constructor(){super();p(this,ke);p(this,T,void 0);p(this,mt,e=>{e.stopPropagation(),!e.isTrusted&&l(this,T)&&(l(this,T).ghost.remove(),this.classList.remove("picked"),$e(this)?.classList.remove("picked"),l(this,T).over&&(this.dispatchEvent(S("drag-line-end",{from:l(this,T).line,to:l(this,T).over.line,at:l(this,T).over.at})),l(this,T).parent.dispatchEvent(S("drag-line-invalidate",void 0)),this.dispatchEvent(S("drag-line-invalidate",void 0)),this.remove(),v(this,T,void 0)))});p(this,ft,e=>{if(e.stopPropagation(),e.isTrusted||!l(this,T))return;let n=tt(this);if(!n)throw Error("missing scrollable ancestor");u(this,ke,Xt).call(this,n,e),n&&ji(n,{x:e.clientX,y:e.clientY},32,4);let r=Ni(e.pageX,e.pageY);if(!r)return;let o=Kt("drag-line, line-list",r);if(!o)return;let s=o instanceof F?$e(o)?.line:void 0;if(!s)return;let d=pr(e,this,o),a;switch(d){case"append":case"prepend":{d="prepend",a="In";let h;o instanceof F?h=$e(o).renderRoot.querySelector("line-list"):h=o,h.renderRoot[d](this);break}case"after":a="End",o[d](this);break;case"before":a="Start",o[d](this);break;default:return}l(this,T).over={at:a,line:s}});p(this,gt,e=>{if(e.stopPropagation(),e.isTrusted)return;let n=$e(this);if(n?.line==null)return;let r=tt(this);if(!r)throw Error("missing scrollable ancestor");let o=et(this);if(!o)throw Error("missing parent");v(this,T,{cursor:{x:e.offsetX,y:e.offsetY},ghost:this.cloneNode(!0),line:n.line,parent:o}),this.classList.add("picked"),n.classList.add("picked"),l(this,T).ghost.children[0]&&(l(this,T).ghost.children[0].line=n.line,l(this,T).ghost.children[0].classList.add("ghost")),l(this,T).ghost.classList.add("ghost"),u(this,ke,Xt).call(this,r,e),r.appendChild(l(this,T).ghost),Ui(),this.dispatchEvent(S("drag-line-start",void 0))});this.addEventListener("drag",l(this,ft)),this.addEventListener("dragend",l(this,mt)),this.addEventListener("dragstart",l(this,gt))}render(){return E`<slot></slot>`}};T=new WeakMap,mt=new WeakMap,ft=new WeakMap,gt=new WeakMap,ke=new WeakSet,Xt=function(e,n){if(!l(this,T))return;let r=this.getBoundingClientRect(),o=Math.max(0,Math.min(e.scrollLeft+n.pageX-l(this,T).cursor.x,e.scrollWidth-r.width-1)),s=Math.max(0,Math.min(e.scrollTop+n.pageY-l(this,T).cursor.y,e.scrollHeight-r.height-1));l(this,T).ghost.style.translate=`${o}px ${s}px`},F.styles=w`
+    ${L}
+
+    :host(.picked) {
+      pointer-events: none; /* Ignore elementFromPoint(). */
+    }
+
+    :host(.ghost) {
+      /* Position relative scrollable top-left. */
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      pointer-events: none; /* Ignore elementFromPoint(). */
+    }
+  `,F=m([_("drag-line")],F);function pr(i,t,e){if(e.contains(t))return"none";if(e instanceof O)return"append";let n=$e(e);if(!n)return"none";let r=n.rect,o={x:i.pageX-r.x,y:i.pageY-r.y},s=o.y/r.height<.5,d=o.x/r.width>=.5,a=n.line?.expand;return s?e.previousElementSibling===t?"none":"before":a?"prepend":d&&!n.line?.down.length?"append":e.nextElementSibling===t?"none":"after"}function $e(i){return i.renderRoot.querySelector("slot").assignedElements()[0]}var R,yt,vt,_e,Le,Te=class extends x{constructor(){super();p(this,R,void 0);p(this,yt,e=>{l(this,R)&&e.preventDefault()});p(this,vt,e=>{if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||!e.isPrimary||e.buttons!==1||!e.composedPath().some(r=>r instanceof F))return;let n=e.composedPath()[0];n instanceof HTMLElement&&(n.isContentEditable&&n.matches(":focus")||(e.preventDefault(),v(this,R,{ev:e,start:{x:e.clientX,y:e.clientY},target:n,timer:setInterval(()=>l(this,_e).call(this,l(this,R).ev),10)})))});p(this,_e,e=>{if(!l(this,R)||!e.isPrimary)return;if(l(this,R).ev=e,l(this,R).drag){l(this,R).target.dispatchEvent(new DragEvent("drag",e));return}let n=e.clientX-l(this,R).start.x,r=e.clientY-l(this,R).start.y;(n*n+r*r>5*5||e.timeStamp-l(this,R).ev.timeStamp>300)&&(this.setPointerCapture(e.pointerId),l(this,R).target.dispatchEvent(new DragEvent("dragstart",e)),l(this,R).drag=!0)});p(this,Le,e=>{!l(this,R)||!e.isPrimary||(l(this,R).drag&&l(this,R).target.dispatchEvent(new DragEvent("dragend",e)),clearInterval(l(this,R).timer),v(this,R,void 0))});this.addEventListener("contextmenu",l(this,yt),!0),this.addEventListener("pointercancel",l(this,Le),!0),this.addEventListener("pointerdown",l(this,vt),!0),this.addEventListener("pointermove",l(this,_e),!0),this.addEventListener("pointerup",l(this,Le),!0)}render(){return E`<slot></slot>`}};R=new WeakMap,yt=new WeakMap,vt=new WeakMap,_e=new WeakMap,Le=new WeakMap,Te.styles=w`
+    ${L}
+
+    :host {
+      /* Stretch over children. */
+      display: block;
+      min-height: 100%;
+
+      /* Update for every pointermove *touch* Event like *mouse* Events. */
+      touch-action: none;
+    }
+  `,Te=m([_("drag-area")],Te);var nn='data:image/svg+xml,<svg viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">%0A  <circle cx="7.5" cy="7.5" fill="%236664" r=".5" /><!-- to-do: fix color-->%0A</svg>';var xt,rn,wt,on,oe=class extends x{constructor(){super(...arguments);p(this,xt);p(this,wt);this.context={}}render(){let e=Qe(this.tree?.down??[],n=>n.id,n=>E`
+        <li>
+          <div class="group-header"></div>
+          <line-list .context=${this.context} .list=${n}></line-list>
+        </li>
+      `);return E`
+      <drag-area>
+        <ol
+          @drag-line-end=${u(this,xt,rn)}
+          @drag-line-start=${u(this,wt,on)}
+        >
+          ${e}
+        </ol>
+      </drag-area>
+    `}};xt=new WeakSet,rn=function(){this.classList.remove("drag")},wt=new WeakSet,on=function(){this.classList.add("drag")},oe.styles=w`
+    ${L}
+
+    drag-area {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+
+      /* Position absolute drag elements relative this scroll container. */
+      position: relative;
+
+      display: block;
+    }
+
+    ol {
+      display: inline-flex;
+
+      /* Clear default list styling. */
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      /* fill parent*/
+      min-width: 100%;
+
+      column-gap: var(--half-space);
+
+      min-height: 100%; /* Fill vertical space for dragging in column. */
+
+      background-color: #f2f5f5;
+      background-image: url('${Oe(nn)}');
+      background-size: 8px;
+    }
+
+    li {
+      height: 100%;
+      display: block;
+      padding-bottom: 54px; /* space for app menu*/
+    }
+
+    li:first-child {
+      margin-left: 8px;
+    }
+    li:last-child {
+      margin-right: 8px;
+    }
+
+    .group-header {
+      cursor: grab;
+      height: 12px;
+      padding-top: 4px;
+      padding-bottom: 1px;
+      background-image: linear-gradient(
+        to bottom,
+        #888,
+        #888 1px,
+        #f2f5f5 1px,
+        #f2f5f5
+      );
+      background-size: 100% 2px;
+      background-clip: content-box;
+    }
+
+    :host(.drag) {
+      cursor: grabbing; /* When dragging, set the cursor to a closed hand. */
+    }
+  `,m([A({attribute:!1})],oe.prototype,"context",2),m([A({attribute:!1})],oe.prototype,"tree",2),oe=m([_("group-list")],oe);var bt,sn,Et,an,$t,ln,pe=class extends x{constructor(){super(...arguments);p(this,bt);p(this,Et);p(this,$t)}render(){return E`
+      <slot name="lhs"></slot>
+      <div class="handle"><hr @pointerdown=${u(this,$t,ln)} /></div>
+      <slot name="rhs"></slot>
+    `}};bt=new WeakSet,sn=function(e){e.currentTarget.onpointercancel=null,e.currentTarget.onpointerup=null,e.currentTarget.onpointermove=null,e.currentTarget.releasePointerCapture(e.pointerId)},Et=new WeakSet,an=function(e){e.clientX+16>this.clientWidth?this._lhs.style.width="":this._lhs.style.width=`${e.clientX}px`},$t=new WeakSet,ln=function(e){e.currentTarget.setPointerCapture(e.pointerId),e.currentTarget.onpointermove=n=>u(this,Et,an).call(this,n),e.currentTarget.onpointercancel=e.currentTarget.onpointerup=n=>u(this,bt,sn).call(this,n)},pe.styles=w`
+    ${L}
+
+    :host {
+      /* Fill area. */
+      display: flex;
+      width: 100%;
+      height: 100%;
+
+      overflow: hidden; /* Limit width. */
+    }
+
+    .handle {
+      position: relative; /* Position child relatively. */
+
+      /* Render handle indicator; child is invisible. */
+      background-color: black;
+      height: 100%;
+      width: 1px;
+    }
+
+    .handle:has(hr:hover) {
+      background-color: red;
+    }
+
+    hr {
+      opacity: 0; /* Hide. Parent is visible. */
+
+      position: absolute; /* Remove from layout. */
+
+      /* Make handle wide and fit the parent. If it's too wide, it blocks drag
+         scrolling. */
+      width: 9px;
+      height: 100%;
+      margin: 0;
+
+      /* Center relative parent. */
+      left: -4px;
+
+      flex-grow: 0;
+
+      cursor: ew-resize;
+    }
+
+    [name='lhs'] {
+      display: block;
+      flex-shrink: 1;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      resize: horizontal;
+    }
+
+    [name='rhs'] {
+      display: block;
+      height: 100%;
+      flex-basis: 0;
+      flex-shrink: 1;
+      flex-grow: 9999;
+      overflow: auto;
+    }
+  `,m([W('slot[name="lhs"]')],pe.prototype,"_lhs",2),pe=m([_("split-block")],pe);function dn(i,t){let e,n=0,r;return function(...o){return r=o,e??=setTimeout(()=>{n=Date.now(),e=void 0;let s=r;r=void 0,i.apply(this,s)},Math.max(0,t-(Date.now()-n))),()=>{e!=null&&clearTimeout(e),e=void 0,r=void 0}}}var Se,Ae,Re,kt,cn,Ce,Yt,se=class extends x{constructor(){super(...arguments);p(this,kt);p(this,Ce);this.text="";p(this,Se,0);p(this,Ae,0);p(this,Re,0)}willUpdate(e){super.willUpdate(e),this._textArea&&(v(this,Se,this._textArea.selectionStart),v(this,Ae,this._textArea.selectionEnd),v(this,Re,this._textArea.scrollTop))}updated(e){super.updated(e),this._textArea.selectionStart=l(this,Se),this._textArea.selectionEnd=l(this,Ae),this._textArea.scrollTop=l(this,Re)}render(){return E`
+      <textarea
+        @beforeinput=${u(this,kt,cn)}
+        @input=${dn(u(this,Ce,Yt),100)}
+        spellcheck
+        .value=${this.text}
+      ></textarea>
+    `}};Se=new WeakMap,Ae=new WeakMap,Re=new WeakMap,kt=new WeakSet,cn=function(e){e.inputType==="insertLineBreak"&&(e.preventDefault(),document.execCommand("insertText",!1,`
+`),u(this,Ce,Yt).call(this))},Ce=new WeakSet,Yt=function(){this.text=this._textArea?.value??"",this.dispatchEvent(S("edit-text",this.text))},se.styles=w`
+    ${L}
+
+    ::selection {
+      background-color: var(--shade-bright-yellow);
+    }
+    :host {
+      min-height: 100%;
+    }
+    textarea {
+      /* Prevent scroll. */
+      display: block;
+
+      /* Fill block. */
+      min-height: 100%;
+      width: 100%;
+
+      /* Disable resizable default. */
+      resize: none;
+
+      /* Only break on newline. */
+      white-space: pre;
+    }
+  `,m([A()],se.prototype,"text",2),m([W("textarea")],se.prototype,"_textArea",2),se=m([_("text-editor")],se);var pn=w`
+  :host {
+    --note-card-width: 144px;
+
+    --shade-black: rgb(0.125 0.125 0.125);
+    --shade-yellow: rgb(255, 255, 230);
+    --shade-bright-yellow: rgba(237, 220, 26, 0.3);
+
+    --half-space: 2px;
+  }
+`;var I,C,U,M,Pe,Tt,hn,_t,un,Z,ue,V,ae,Lt,mn,St,fn,At,gn,Rt,yn,Ct,vn,Me,Pt,xn,Mt,wn,Dt,bn,Ht,En,Ot,$n,he=class extends x{constructor(){super();p(this,Tt);p(this,_t);p(this,Z);p(this,V);p(this,Lt);p(this,St);p(this,At);p(this,Rt);p(this,Ct);p(this,Pt);p(this,Mt);p(this,Dt);p(this,Ht);p(this,Ot);p(this,I,{});p(this,C,void 0);p(this,U,void 0);p(this,M,!1);p(this,Pe,void 0);p(this,Me,async()=>{if(!l(this,M)||!l(this,C))return;let e=await ki(l(this,C));if(!Ti(l(this,C),e))return;v(this,C,e);let n=await l(this,C).file.text(),r=$.toString(this.tree);n!==r&&(this.tree=$(n,2))});console.log("Linear Text v0.5.10 by \u2500\u2500oidoid>\xB0\u2500");let e=Ci();e?(v(this,M,e.saved),this.tree=$(e.text,2),v(this,U,e.filename),u(this,V,ae).call(this)):this.tree=$("hello",2)}render(){return E`
+      <split-block
+        ><group-list
+          slot="lhs"
+          .context=${l(this,I)}
+          .tree=${this.tree}
+          @blur-line=${u(this,Tt,hn)}
+          @break-line=${u(this,_t,un)}
+          @drag-line-end=${u(this,St,fn)}
+          @edit-line=${u(this,At,gn)}
+          @expand-line=${u(this,Rt,yn)}
+          @focus-line=${u(this,Ct,vn)}
+          @remove-line=${u(this,Pt,xn)}
+        ></group-list
+        ><text-editor
+          slot="rhs"
+          text="${$.toString(this.tree)}"
+          @edit-text=${u(this,Lt,mn)}
+        ></text-editor></split-block
+      ><app-menu
+        @new-file=${u(this,Ht,En)}
+        @open-file=${u(this,Ot,$n)}
+        @save-file=${u(this,Mt,wn)}
+        @save-file-as=${u(this,Dt,bn)}
+      ></app-menu>
+    `}connectedCallback(){super.connectedCallback(),addEventListener("focus",l(this,Me)),v(this,Pe,setInterval(()=>Ri(l(this,U),l(this,M),this.tree),3e4))}disconnectedCallback(){clearInterval(l(this,Pe)),removeEventListener("focus",l(this,Me)),super.disconnectedCallback()}};I=new WeakMap,C=new WeakMap,U=new WeakMap,M=new WeakMap,Pe=new WeakMap,Tt=new WeakSet,hn=function(e){l(this,I).focus?.line===e.detail&&delete l(this,I).focus},_t=new WeakSet,un=function(e){let n=$.breakLine(e.detail.line,e.detail.at,"LF");l(this,I).focus={line:n.new,startOfLine:!0},u(this,Z,ue).call(this,n.root)},Z=new WeakSet,ue=function(e){this.tree=e,v(this,M,!1),u(this,V,ae).call(this)},V=new WeakSet,ae=function(){ur(l(this,U),l(this,M))},Lt=new WeakSet,mn=function(e){u(this,Z,ue).call(this,$(e.detail,2))},St=new WeakSet,fn=function(e){u(this,Z,ue).call(this,$.moveLine(e.detail.from,e.detail.to,e.detail.at))},At=new WeakSet,gn=function(e){u(this,Z,ue).call(this,$.setLineText(e.detail.line,e.detail.text))},Rt=new WeakSet,yn=function(e){this.tree=$.setLineExpand(e.detail.line,e.detail.expand)},Ct=new WeakSet,vn=function(e){l(this,I).focus={line:e.detail,startOfLine:l(this,I).focus?.line===e.detail?l(this,I).focus.startOfLine:!1}},Me=new WeakMap,Pt=new WeakSet,xn=function(e){u(this,Z,ue).call(this,$.removeLine(e.detail.line))},Mt=new WeakSet,wn=async function(){let e=$.toString(this.tree);v(this,C,await Wt(l(this,C),e)),v(this,U,l(this,C)?.file.name),v(this,M,!!l(this,C)),u(this,V,ae).call(this)},Dt=new WeakSet,bn=async function(){let e=$.toString(this.tree);v(this,C,await Wt(void 0,e)),v(this,U,l(this,C)?.file.name),v(this,M,!!l(this,C)),u(this,V,ae).call(this)},Ht=new WeakSet,En=function(){v(this,C,void 0),v(this,U,void 0),this.tree=$("",2),v(this,M,!0),u(this,V,ae).call(this)},Ot=new WeakSet,$n=async function(){if(v(this,C,await $i()),v(this,U,l(this,C)?.file.name),!l(this,C))return;let e=await l(this,C).file.text();this.tree=$(e,2),v(this,M,!0),u(this,V,ae).call(this)},he.styles=w`
+    ${L}
+    ${pn}
+
+    :host {
+      display: flex;
+      flex-direction: column;
+      display: block;
+
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      user-select: none;
+
+      font-family: sans-serif;
+      font-size: 16px;
+      line-height: 1.1;
+
+      background: #006400;
+      background-color: black;
+    }
+
+    app-menu {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      translate: -50%;
+      /* need spacer so you can click notes at the bottom underneath */
+    }
+
+    split-block {
+      flex-grow: 1;
+      /* to-do: fix with divider which makes this look weird */
+      border-width: 1px;
+      border-style: solid;
+      border-radius: 8px;
+      border-color: black;
+    }
+
+    group-list {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  `,m([A({attribute:!1})],he.prototype,"tree",2),he=m([_("linear-text")],he);function ur(i,t){document.title=t?i==null?"Linear Text":`${i} \u2013 Linear Text`:i==null?"\u2022 (Unsaved) \u2013 Linear Text":`\u2022 ${i} (Unsaved) \u2013 Linear Text`;let e=document.querySelector('link[rel="icon"]');e&&(e.href=t?gi:fi)}export{he as LinearText};
+/*! Bundled license information:
+
+@lit/reactive-element/css-tag.js:
+  (**
+   * @license
+   * Copyright 2019 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/reactive-element.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/lit-html.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-element/lit-element.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/is-server.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/custom-element.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/property.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/state.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/event-options.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/base.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/query.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/query-all.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/query-async.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/query-assigned-elements.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+@lit/reactive-element/decorators/query-assigned-nodes.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directive.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directive-helpers.js:
+  (**
+   * @license
+   * Copyright 2020 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directives/repeat.js:
+  (**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directives/keyed.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+
+lit-html/directives/class-map.js:
+  (**
+   * @license
+   * Copyright 2018 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   *)
+*/
+//# sourceMappingURL=linear-text.js.map
+</script>
+    <linear-text></linear-text>
+  
+
+</body></html>
